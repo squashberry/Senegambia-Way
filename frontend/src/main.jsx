@@ -171,7 +171,7 @@ function App() {
     const email = authForm.email.trim();
     const password = authForm.password;
 
-    if (!email || !/^\\S+@\\S+\\.\\S+$/.test(email)) {
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       setAuthError("Enter a valid email address.");
       return;
     }
@@ -584,6 +584,7 @@ function App() {
             <button className="modal-close" onClick={closeAuth}>Close</button>
           </section>
         </div>
+      )}
     </main>
   );
 }
