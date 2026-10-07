@@ -36,29 +36,37 @@ const places = [
 ];
 
 function Logo() {
+  const clipId = React.useId().replace(/:/g, "");
   return (
-    <svg viewBox="0 0 64 53" className="brand-mark" role="img" aria-label="Senegambia Way">
+    <svg viewBox="0 0 64 64" className="brand-mark" role="img" aria-label="Senegambia Way">
+      <path
+        d="M32 4C20.9 4 12 12.4 12 22.8c0 12.8 9.8 23.5 20 35.2 10.2-11.7 20-22.4 20-35.2C52 12.4 43.1 4 32 4Z"
+        fill="#fff"
+        stroke="#0C1C8C"
+        strokeWidth="2.2"
+      />
       <defs>
-        <linearGradient id="logo-gold" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ffd45a" />
-          <stop offset="1" stopColor="#e9a512" />
-        </linearGradient>
-        <clipPath id="flag-band"><rect x="10" y="40" width="44" height="9" rx="3" /></clipPath>
+        <clipPath id={`senegambia-logo-${clipId}`}>
+          <circle cx="32" cy="25" r="15.5" />
+        </clipPath>
       </defs>
-      <path d="M6 18 L18 30 L32 8 L46 30 L58 18 L53 42 H11 Z" fill="url(#logo-gold)" stroke="#b97b06" strokeWidth="2" strokeLinejoin="round" />
-      <g clipPath="url(#flag-band)">
-        <rect x="10" y="40" width="44" height="3" fill="#d11c2c" />
-        <rect x="10" y="43" width="44" height="3" fill="#1236a2" />
-        <rect x="10" y="46" width="44" height="3" fill="#198754" />
-        <rect x="10" y="43" width="44" height="1.2" fill="#fff" />
-        <rect x="10" y="46" width="44" height="1.2" fill="#fff" />
+      <g clipPath={`url(#senegambia-logo-${clipId})`}>
+        <rect x="15" y="9" width="34" height="11.5" fill="#CE1126" />
+        <rect x="15" y="20.5" width="34" height="10" fill="#0C1C8C" />
+        <rect x="15" y="30.5" width="34" height="11.5" fill="#3A7728" />
+        <rect x="15" y="19.3" width="34" height="1.2" fill="#fff" />
+        <rect x="15" y="29.3" width="34" height="1.2" fill="#fff" />
+        <path
+          d="M31 8c-3.2 8.1 4.6 11.4 0 17.2-4.6 5.8 3 9.8 0 17.8"
+          fill="none"
+          stroke="#fff"
+          strokeWidth="2.1"
+          strokeLinecap="round"
+          opacity=".95"
+        />
       </g>
-      <rect x="10" y="40" width="44" height="9" rx="3" fill="none" stroke="#b97b06" strokeWidth="2" />
-      <circle cx="6" cy="17" r="4" fill="#fff6dc" stroke="#b97b06" strokeWidth="1.5" />
-      <circle cx="32" cy="7" r="4.5" fill="#fff6dc" stroke="#b97b06" strokeWidth="1.5" />
-      <circle cx="58" cy="17" r="4" fill="#fff6dc" stroke="#b97b06" strokeWidth="1.5" />
-      <path d="M32 24 L37 30 L32 36 L27 30 Z" fill="#22b573" stroke="#128a55" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M32 24 L37 30 L32 30 Z" fill="#4ade80" />
+      <circle cx="32" cy="25" r="15.5" fill="none" stroke="#fff" strokeWidth="1.1" opacity=".85" />
+      <circle cx="32" cy="13.5" r="2.5" fill="#fff" stroke="#0C1C8C" strokeWidth="1.1" />
     </svg>
   );
 }
@@ -76,6 +84,8 @@ function App() {
   const [auth, setAuth] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [notice, setNotice] = useState(null);
+  const [authForm, setAuthForm] = useState({ name: "", email: "", password: "" });
+  const [authError, setAuthError] = useState("");
   const [mapView, setMapView] = useState({ x: 0, y: 0, zoom: 1 });
   const [dragging, setDragging] = useState(false);
 
@@ -132,6 +142,53 @@ function App() {
   };
 
   const resetMap = () => setMapView({ x: 0, y: 0, zoom: 1 });
+
+  const focusPlace = (place, zoom = 1.55) => {
+    const rect = worldRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const targetX = rect.width * (place.x / 1440);
+    const targetY = rect.height * (place.y / 1000);
+    const nextX = rect.width / 2 - targetX * zoom;
+    const nextY = rect.height / 2 - targetY * zoom;
+
+    setSelectedPlace(place);
+    setMapView(clampView(nextX, nextY, zoom));
+  };
+
+  const openAuth = (mode) => {
+    setAuth(mode);
+    setAuthError("");
+    setAuthForm({ name: "", email: "", password: "" });
+  };
+
+  const closeAuth = () => {
+    setAuth(null);
+    setAuthError("");
+  };
+
+  const submitAuth = () => {
+    const email = authForm.email.trim();
+    const password = authForm.password;
+
+    if (!email || !/^\\S+@\\S+\\.\\S+$/.test(email)) {
+      setAuthError("Enter a valid email address.");
+      return;
+    }
+    if (password.length < 6) {
+      setAuthError("Use at least 6 characters for the password.");
+      return;
+    }
+    if (auth === "signup" && !authForm.name.trim()) {
+      setAuthError("Add your name to continue.");
+      return;
+    }
+
+    closeAuth();
+    showNotice(auth === "signup"
+      ? "Signup details look good. Account service is ready for the next backend connection."
+      : "Login details look good. Account service is ready for the next backend connection.");
+  };
 
   const onMapWheel = (event) => {
     event.preventDefault();
@@ -378,8 +435,8 @@ function App() {
                 <span className="online"><i /> 79k online</span>
                 <span>👀 17565k visits</span>
               </div>
-              <button className="btn btn-green header-btn" onClick={() => setAuth("signup")}>Sign up</button>
-              <button className="btn btn-mist header-btn" onClick={() => setAuth("login")}>Log in</button>
+              <button className="btn btn-green header-btn" onClick={() => openAuth("signup")}>Sign up</button>
+              <button className="btn btn-mist header-btn" onClick={() => openAuth("login")}>Log in</button>
             </div>
 
             <div className="mobile-stats">
@@ -389,9 +446,9 @@ function App() {
 
             <div className="chip-scroll">
               <div className="chip-row">
-                <button className="pill panel" onClick={() => showNotice("Government is centred in Banjul.")}>🏛️ Government</button>
-                <button className="pill panel" onClick={() => showNotice("Coastal plots are coming to the Senegambia shoreline.")}>🌊 Coastal Plots</button>
-                <button className="pill panel" onClick={() => showNotice("400 homes available across the growing city.")}>🏘️ 400 homes</button>
+                <button className="pill panel" onClick={() => focusPlace(places.find((place) => place.name === "Arch 22 Square"))}>🏛️ Government</button>
+                <button className="pill panel" onClick={() => focusPlace(places.find((place) => place.name === "Kololi Beach"))}>🌊 Coastal Plots</button>
+                <button className="pill panel" onClick={() => focusPlace(places.find((place) => place.name === "Kairaba Office District"))}>🏘️ 400 homes</button>
               </div>
             </div>
 
@@ -410,9 +467,12 @@ function App() {
             <div className="place-popover-icon">{selectedPlace.icon}</div>
             <div className="place-popover-copy">
               <strong>{selectedPlace.name}</strong>
-              <span>Tap to explore this Senegambia Way location.</span>
+              <span>Explore this location on the interactive world.</span>
             </div>
-            <button aria-label="Close" className="popover-close" onClick={() => setSelectedPlace(null)}>×</button>
+            <div className="place-popover-actions">
+              <button className="place-focus" onClick={() => focusPlace(selectedPlace)}>Center</button>
+              <button aria-label="Close" className="popover-close" onClick={() => setSelectedPlace(null)}>×</button>
+            </div>
           </div>
         )}
 
@@ -428,8 +488,8 @@ function App() {
             </div>
 
             <div className="action-grid">
-              <button className="btn btn-green primary-action" onClick={() => setAuth("signup")}>Sign up free</button>
-              <button className="btn btn-white secondary-action" onClick={() => setAuth("login")}>Log in</button>
+              <button className="btn btn-green primary-action" onClick={() => openAuth("signup")}>Sign up free</button>
+              <button className="btn btn-white secondary-action" onClick={() => openAuth("login")}>Log in</button>
             </div>
 
             <div className="social-row">
@@ -463,19 +523,67 @@ function App() {
       </section>
 
       {auth && (
-        <div className="modal-backdrop" onClick={() => setAuth(null)}>
+        <div className="modal-backdrop" onClick={closeAuth}>
           <section className="auth-modal panel" onClick={(e) => e.stopPropagation()}>
             <div className="auth-mark"><Logo /></div>
-            <p className="eyebrow">Senegambia Way</p>
+            <p className="eyebrow">Senegambia Way · Preview</p>
             <h1>{auth === "signup" ? "Start your Gambian story" : "Welcome back"}</h1>
-            <p className="auth-subtitle">The visual shell is wired. Account API integration comes after the UI is locked.</p>
-            <label>Email<input type="email" placeholder="you@example.com" /></label>
-            <label>Password<input type="password" placeholder="••••••••" /></label>
-            <button className="btn btn-green auth-submit" onClick={() => showNotice("Authentication backend is the next integration layer.")}>Continue</button>
-            <button className="modal-close" onClick={() => setAuth(null)}>Close</button>
+            <p className="auth-subtitle">
+              This preview validates the account flow and layout locally. Production account handling can plug into the same form without changing the map shell.
+            </p>
+
+            {auth === "signup" && (
+              <label>
+                Name
+                <input
+                  value={authForm.name}
+                  onChange={(event) => setAuthForm((current) => ({ ...current, name: event.target.value }))}
+                  autoComplete="name"
+                  placeholder="Your name"
+                />
+              </label>
+            )}
+
+            <label>
+              Email
+              <input
+                value={authForm.email}
+                onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))}
+                autoComplete="email"
+                inputMode="email"
+                placeholder="you@example.com"
+              />
+            </label>
+
+            <label>
+              Password
+              <input
+                type="password"
+                value={authForm.password}
+                onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))}
+                autoComplete={auth === "signup" ? "new-password" : "current-password"}
+                placeholder="••••••••"
+              />
+            </label>
+
+            {authError && <div className="auth-error" role="alert">{authError}</div>}
+
+            <button className="btn btn-green auth-submit" onClick={submitAuth}>
+              {auth === "signup" ? "Create preview account" : "Continue"}
+            </button>
+
+            {auth === "login" && (
+              <button
+                className="auth-link"
+                onClick={() => showNotice("Password reset will use the production account service when connected.")}
+              >
+                Forgot password?
+              </button>
+            )}
+
+            <button className="modal-close" onClick={closeAuth}>Close</button>
           </section>
         </div>
-      )}
     </main>
   );
 }
