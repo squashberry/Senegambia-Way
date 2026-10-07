@@ -76,7 +76,33 @@ function App() {
   const [auth, setAuth] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [notice, setNotice] = useState(null);
+  const [mapView, setMapView] = useState({ x: 0, y: 0, zoom: 1 });
+  const [dragging, setDragging] = useState(false);
+
   const mapMarkers = useMemo(() => places, []);
+  const pointers = React.useRef(new Map());
+  const dragState = React.useRef(null);
+  const pinchState = React.useRef(null);
+  const worldRef = React.useRef(null);
+
+  const clampZoom = (zoom) => Math.min(2.6, Math.max(1, zoom));
+
+  const clampView = (x, y, zoom) => {
+    const rect = worldRef.current?.getBoundingClientRect();
+    if (!rect) return { x, y, zoom };
+
+    const overscroll = 28;
+    const minX = rect.width - rect.width * zoom - overscroll;
+    const maxX = overscroll;
+    const minY = rect.height - rect.height * zoom - overscroll;
+    const maxY = overscroll;
+
+    return {
+      x: zoom === 1 ? 0 : Math.min(maxX, Math.max(minX, x)),
+      y: zoom === 1 ? 0 : Math.min(maxY, Math.max(minY, y)),
+      zoom
+    };
+  };
 
   const showNotice = (message) => {
     setNotice(message);
@@ -84,83 +110,264 @@ function App() {
     window.__senegambiaNotice = window.setTimeout(() => setNotice(null), 2200);
   };
 
+  const zoomAt = (clientX, clientY, direction) => {
+    const rect = worldRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    setMapView((current) => {
+      const pointerX = clientX - rect.left;
+      const pointerY = clientY - rect.top;
+      const factor = direction > 0 ? 1.12 : 0.89;
+      const nextZoom = clampZoom(current.zoom * factor);
+
+      if (nextZoom === current.zoom) return current;
+
+      const worldPointX = (pointerX - current.x) / current.zoom;
+      const worldPointY = (pointerY - current.y) / current.zoom;
+      const nextX = pointerX - worldPointX * nextZoom;
+      const nextY = pointerY - worldPointY * nextZoom;
+
+      return clampView(nextX, nextY, nextZoom);
+    });
+  };
+
+  const resetMap = () => setMapView({ x: 0, y: 0, zoom: 1 });
+
+  const onMapWheel = (event) => {
+    event.preventDefault();
+    zoomAt(event.clientX, event.clientY, event.deltaY < 0 ? 1 : -1);
+  };
+
+  const onMapPointerDown = (event) => {
+    if (event.button !== 0 && event.pointerType !== "touch" && event.pointerType !== "pen") return;
+
+    const point = { x: event.clientX, y: event.clientY };
+    pointers.current.set(event.pointerId, point);
+
+    if (pointers.current.size === 2) {
+      const values = [...pointers.current.values()];
+      const first = values[0];
+      const second = values[1];
+      const midpoint = {
+        x: (first.x + second.x) / 2,
+        y: (first.y + second.y) / 2
+      };
+      const rect = worldRef.current?.getBoundingClientRect();
+      if (rect) {
+        pinchState.current = {
+          distance: Math.hypot(second.x - first.x, second.y - first.y),
+          midpoint,
+          zoom: mapView.zoom,
+          worldPoint: {
+            x: (midpoint.x - rect.left - mapView.x) / mapView.zoom,
+            y: (midpoint.y - rect.top - mapView.y) / mapView.zoom
+          }
+        };
+      }
+      dragState.current = null;
+      setDragging(false);
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+      return;
+    }
+
+    dragState.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: mapView.x,
+      originY: mapView.y
+    };
+
+    setDragging(true);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const onMapPointerMove = (event) => {
+    if (pointers.current.has(event.pointerId)) {
+      pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    }
+
+    if (pointers.current.size >= 2 && pinchState.current) {
+      const values = [...pointers.current.values()];
+      const first = values[0];
+      const second = values[1];
+      const currentDistance = Math.hypot(second.x - first.x, second.y - first.y);
+      const currentMidpoint = {
+        x: (first.x + second.x) / 2,
+        y: (first.y + second.y) / 2
+      };
+      const rect = worldRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      const nextZoom = clampZoom(
+        pinchState.current.zoom * (currentDistance / Math.max(1, pinchState.current.distance))
+      );
+      const nextX = currentMidpoint.x - rect.left - pinchState.current.worldPoint.x * nextZoom;
+      const nextY = currentMidpoint.y - rect.top - pinchState.current.worldPoint.y * nextZoom;
+
+      setMapView(clampView(nextX, nextY, nextZoom));
+      return;
+    }
+
+    const drag = dragState.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    setMapView((current) =>
+      clampView(
+        drag.originX + event.clientX - drag.startX,
+        drag.originY + event.clientY - drag.startY,
+        current.zoom
+      )
+    );
+  };
+
+  const onMapPointerEnd = (event) => {
+    pointers.current.delete(event.pointerId);
+
+    if (pointers.current.size < 2) {
+      pinchState.current = null;
+    }
+    if (pointers.current.size === 0) {
+      dragState.current = null;
+      setDragging(false);
+    }
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+      event.currentTarget.releasePointerCapture?.(event.pointerId);
+    }
+  };
+
+  const onMapDoubleClick = (event) => {
+    event.preventDefault();
+    zoomAt(event.clientX, event.clientY, 1);
+  };
+
+  const onMapKeyDown = (event) => {
+    if (event.key === "0") {
+      event.preventDefault();
+      resetMap();
+    } else if (event.key === "+" || event.key === "=") {
+      event.preventDefault();
+      const rect = worldRef.current?.getBoundingClientRect();
+      if (rect) zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, 1);
+    } else if (event.key === "-" || event.key === "_") {
+      event.preventDefault();
+      const rect = worldRef.current?.getBoundingClientRect();
+      if (rect) zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, -1);
+    }
+  };
+
+  const stopMapPointer = (event) => {
+    event.stopPropagation();
+  };
+
   return (
     <main className="app-shell">
-      <section className="world">
-        <div className="world-art" aria-hidden="true">
-          <svg className="world-svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#64bae8" />
-                <stop offset="1" stopColor="#4aa6d6" />
-              </linearGradient>
-              <linearGradient id="sand" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#efe4b9" />
-                <stop offset="1" stopColor="#e2d29b" />
-              </linearGradient>
-              <filter id="soft-shadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="5" stdDeviation="7" floodColor="#16324b" floodOpacity=".18" />
-              </filter>
-            </defs>
+      <section className="world" ref={worldRef}>
+        <div
+          className={"map-interaction" + (dragging ? " is-dragging" : "")}
+          tabIndex={0}
+          role="application"
+          aria-label="Interactive Senegambia Way world map. Drag to pan, scroll or pinch to zoom, and press 0 to reset."
+          onWheel={onMapWheel}
+          onPointerDown={onMapPointerDown}
+          onPointerMove={onMapPointerMove}
+          onPointerUp={onMapPointerEnd}
+          onPointerCancel={onMapPointerEnd}
+          onDoubleClick={onMapDoubleClick}
+          onKeyDown={onMapKeyDown}
+        >
+          <div
+            className="map-scene"
+            style={{
+              transform:
+                "translate3d(" +
+                mapView.x +
+                "px," +
+                mapView.y +
+                "px,0) scale(" +
+                mapView.zoom +
+                ")"
+            }}
+          >
+            <div className="world-art" aria-hidden="true">
+              <svg className="world-svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#64bae8" />
+                    <stop offset="1" stopColor="#4aa6d6" />
+                  </linearGradient>
+                  <linearGradient id="sand" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#efe4b9" />
+                    <stop offset="1" stopColor="#e2d29b" />
+                  </linearGradient>
+                  <filter id="soft-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow dx="0" dy="5" stdDeviation="7" floodColor="#16324b" floodOpacity=".18" />
+                  </filter>
+                </defs>
+                <rect width="1200" height="800" fill="url(#water)" />
+                <g opacity=".35">
+                  <path d="M40 90C200 70 300 96 405 86S650 105 810 88s235 4 350-10" fill="none" stroke="#bce3f4" strokeWidth="4" />
+                  <path d="M30 700C170 680 310 695 460 690s280 18 420 2 225-6 300-18" fill="none" stroke="#bce3f4" strokeWidth="3" />
+                </g>
+                <path d="M0 86 C180 40 328 76 430 88 C550 101 601 80 704 96 C810 112 900 93 1010 78 C1080 68 1140 73 1200 56 L1200 800 L0 800 Z" fill="url(#sand)" filter="url(#soft-shadow)" />
+                <path d="M1020 0 C1072 62 1080 138 1057 202 C1031 274 1070 327 1128 379 C1160 407 1170 461 1146 520 C1120 580 1128 646 1200 691 L1200 0Z" fill="#2f93bf" opacity=".55" />
+                <path d="M0 564 C100 520 196 510 275 550 C350 588 422 625 500 618 C608 609 712 564 807 578 C915 592 1006 659 1200 634 L1200 800 L0 800Z" fill="#d9c88e" opacity=".72" />
+                <g fill="none" strokeLinecap="round">
+                  <path d="M130 110 C235 172 283 235 338 305 S442 405 504 470 S640 573 770 628 S978 699 1120 742" stroke="#f4f0dd" strokeWidth="18" opacity=".9" />
+                  <path d="M140 113 C245 175 288 239 343 309 S448 410 510 476 S650 581 777 635 S982 705 1128 748" stroke="#cbbf98" strokeWidth="3" />
+                  <path d="M225 52 C278 138 348 180 420 212 S577 280 671 326 S828 421 927 452" stroke="#f4f0dd" strokeWidth="11" opacity=".9" />
+                  <path d="M18 320 C146 310 208 331 292 368 S438 435 562 420 S747 360 855 349 S1021 389 1191 360" stroke="#f4f0dd" strokeWidth="12" opacity=".9" />
+                  <path d="M392 16 C394 128 438 206 489 275 S570 413 605 532 S653 684 718 790" stroke="#f4f0dd" strokeWidth="9" opacity=".86" />
+                  <path d="M780 10 C759 103 755 184 788 263 S871 387 884 488 S863 657 905 798" stroke="#f4f0dd" strokeWidth="8" opacity=".82" />
+                </g>
+                <g fill="#f7f4df" stroke="#c0b58e" strokeWidth="2" opacity=".92">
+                  <rect x="80" y="120" width="120" height="72" rx="12" />
+                  <rect x="267" y="250" width="136" height="88" rx="14" />
+                  <rect x="540" y="105" width="122" height="76" rx="14" />
+                  <rect x="718" y="268" width="164" height="102" rx="18" />
+                  <rect x="470" y="505" width="152" height="86" rx="16" />
+                  <rect x="940" y="468" width="170" height="100" rx="18" />
+                  <rect x="838" y="650" width="144" height="80" rx="15" />
+                </g>
+                <g fill="#6baa65" opacity=".55">
+                  <circle cx="190" cy="132" r="54" />
+                  <circle cx="326" cy="300" r="40" />
+                  <circle cx="612" cy="126" r="46" />
+                  <circle cx="792" cy="314" r="58" />
+                  <circle cx="998" cy="518" r="66" />
+                  <circle cx="880" cy="684" r="56" />
+                </g>
+              </svg>
+            </div>
 
-            <rect width="1200" height="800" fill="url(#water)" />
-
-            <g opacity=".35">
-              <path d="M40 90C200 70 300 96 405 86S650 105 810 88s235 4 350-10" fill="none" stroke="#bce3f4" strokeWidth="4" />
-              <path d="M30 700C170 680 310 695 460 690s280 18 420 2 225-6 300-18" fill="none" stroke="#bce3f4" strokeWidth="3" />
-            </g>
-
-            <path d="M0 86 C180 40 328 76 430 88 C550 101 601 80 704 96 C810 112 900 93 1010 78 C1080 68 1140 73 1200 56 L1200 800 L0 800 Z" fill="url(#sand)" filter="url(#soft-shadow)" />
-            <path d="M1020 0 C1072 62 1080 138 1057 202 C1031 274 1070 327 1128 379 C1160 407 1170 461 1146 520 C1120 580 1128 646 1200 691 L1200 0Z" fill="#2f93bf" opacity=".55" />
-            <path d="M0 564 C100 520 196 510 275 550 C350 588 422 625 500 618 C608 609 712 564 807 578 C915 592 1006 659 1200 634 L1200 800 L0 800Z" fill="#d9c88e" opacity=".72" />
-
-            <g fill="none" strokeLinecap="round">
-              <path d="M130 110 C235 172 283 235 338 305 S442 405 504 470 S640 573 770 628 S978 699 1120 742" stroke="#f4f0dd" strokeWidth="18" opacity=".9" />
-              <path d="M140 113 C245 175 288 239 343 309 S448 410 510 476 S650 581 777 635 S982 705 1128 748" stroke="#cbbf98" strokeWidth="3" />
-              <path d="M225 52 C278 138 348 180 420 212 S577 280 671 326 S828 421 927 452" stroke="#f4f0dd" strokeWidth="11" opacity=".9" />
-              <path d="M18 320 C146 310 208 331 292 368 S438 435 562 420 S747 360 855 349 S1021 389 1191 360" stroke="#f4f0dd" strokeWidth="12" opacity=".9" />
-              <path d="M392 16 C394 128 438 206 489 275 S570 413 605 532 S653 684 718 790" stroke="#f4f0dd" strokeWidth="9" opacity=".86" />
-              <path d="M780 10 C759 103 755 184 788 263 S871 387 884 488 S863 657 905 798" stroke="#f4f0dd" strokeWidth="8" opacity=".82" />
-            </g>
-
-            <g fill="#f7f4df" stroke="#c0b58e" strokeWidth="2" opacity=".92">
-              <rect x="80" y="120" width="120" height="72" rx="12" />
-              <rect x="267" y="250" width="136" height="88" rx="14" />
-              <rect x="540" y="105" width="122" height="76" rx="14" />
-              <rect x="718" y="268" width="164" height="102" rx="18" />
-              <rect x="470" y="505" width="152" height="86" rx="16" />
-              <rect x="940" y="468" width="170" height="100" rx="18" />
-              <rect x="838" y="650" width="144" height="80" rx="15" />
-            </g>
-
-            <g fill="#6baa65" opacity=".55">
-              <circle cx="190" cy="132" r="54" />
-              <circle cx="326" cy="300" r="40" />
-              <circle cx="612" cy="126" r="46" />
-              <circle cx="792" cy="314" r="58" />
-              <circle cx="998" cy="518" r="66" />
-              <circle cx="880" cy="684" r="56" />
-            </g>
-          </svg>
+            <div className="place-layer">
+              {mapMarkers.map((place) => {
+                const left = (place.x / 1440) * 100 + "%";
+                const top = (place.y / 1000) * 100 + "%";
+                const active = selectedPlace?.name === place.name;
+                return (
+                  <div className={"place-anchor" + (active ? " is-active" : "")} style={{ left, top }} key={place.name}>
+                    <button
+                      className="place-tag"
+                      title={place.name}
+                      aria-label={place.name}
+                      onPointerDown={stopMapPointer}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setSelectedPlace(active ? null : place);
+                      }}
+                    >
+                      <span className="place-icon">{place.icon}</span>
+                      <span className="place-label">{place.name}</span>
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         <div className="map-vignette" aria-hidden="true" />
-
-        <div className="place-layer">
-          {mapMarkers.map((place) => {
-            const left = (place.x / 1440) * 100 + "%";
-            const top = (place.y / 1000) * 100 + "%";
-            const active = selectedPlace?.name === place.name;
-            return (
-              <div className={"place-anchor" + (active ? " is-active" : "")} style={{ left, top }} key={place.name}>
-                <button className="place-tag" title={place.name} aria-label={place.name} onClick={() => setSelectedPlace(active ? null : place)}>
-                  <span className="place-icon">{place.icon}</span>
-                  <span className="place-label">{place.name}</span>
-                </button>
-              </div>
-            );
-          })}
-        </div>
 
         <div className="safe-top">
           <div className="top-stack">
@@ -190,6 +397,12 @@ function App() {
 
             <div className="week-banner">💡 NAWEC power watch this week</div>
           </div>
+        </div>
+
+        <div className="map-hint panel" aria-hidden="true">
+          <span className="map-hint-gesture">✥</span>
+          <span>Drag · pinch · scroll</span>
+          {mapView.zoom > 1 && <button type="button" onClick={resetMap}>Reset</button>}
         </div>
 
         {selectedPlace && (
@@ -265,6 +478,10 @@ function App() {
       )}
     </main>
   );
+}
+
+createRoot(document.getElementById("root")).render(<App />);
+
 }
 
 createRoot(document.getElementById("root")).render(<App />);
