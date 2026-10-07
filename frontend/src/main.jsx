@@ -80,6 +80,20 @@ function SocialIcon({ kind }) {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d={paths[kind]} /></svg>;
 }
 
+const SESSION_VERSION = "3";
+const SESSION_KEY = "senegambia-session";
+const ONBOARDING_KEY = "senegambia-onboarding-complete-v3";
+
+function readCurrentSession() {
+  try {
+    if (localStorage.getItem("senegambia-session-version") !== SESSION_VERSION) return null;
+    const raw = localStorage.getItem(SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
 function App() {
   const query = new URLSearchParams(window.location.search);
   const [cookieOpen, setCookieOpen] = useState(() => {
@@ -93,18 +107,10 @@ function App() {
     const authParam = query.get("auth");
     return authParam === "login" || authParam === "signup" ? authParam : null;
   });
-  const [session, setSession] = useState(() => {
-    try {
-      const raw = localStorage.getItem("senegambia-session");
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [session, setSession] = useState(readCurrentSession);
   const [onboardingOpen, setOnboardingOpen] = useState(() => {
     try {
-      return !!localStorage.getItem("senegambia-session")
-        && localStorage.getItem("senegambia-onboarding-complete") !== "1";
+      return !!readCurrentSession() && localStorage.getItem(ONBOARDING_KEY) !== "1";
     } catch {
       return false;
     }
@@ -118,17 +124,16 @@ function App() {
       skin: "Deep",
       hair: "Low cut",
       outfit: "Casual",
+      fabric: "Plain",
       bio: "",
-      trait: "Resourceful",
+      traitOne: "Resourceful",
+      traitTwo: "Creative",
+      dream: "Build a business",
+      birth: "",
       home: "Serrekunda"
     };
-    try {
-      const raw = localStorage.getItem("senegambia-session");
-      const saved = raw ? JSON.parse(raw) : null;
-      return saved?.sim ? { ...defaults, ...saved.sim } : defaults;
-    } catch {
-      return defaults;
-    }
+    const saved = readCurrentSession();
+    return saved?.sim ? { ...defaults, ...saved.sim } : defaults;
   });
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [notice, setNotice] = useState(null);
@@ -266,8 +271,10 @@ function App() {
   const submitAuth = () => {
     const identifier = authForm.username.trim() || "player";
     const displayName = (auth === "signup" ? authForm.name.trim() : identifier) || "Gambian Player";
-    const alreadyOnboarded = (() => {
-      try { return localStorage.getItem("senegambia-onboarding-complete") === "1"; }
+    const existing = readCurrentSession();
+    const sameUser = existing?.username === identifier;
+    const alreadyOnboarded = sameUser && (() => {
+      try { return localStorage.getItem(ONBOARDING_KEY) === "1"; }
       catch { return false; }
     })();
 
@@ -279,8 +286,9 @@ function App() {
     };
 
     try {
-      localStorage.setItem("senegambia-session", JSON.stringify(nextSession));
-      if (!alreadyOnboarded) localStorage.removeItem("senegambia-onboarding-complete");
+      localStorage.setItem("senegambia-session-version", SESSION_VERSION);
+      localStorage.setItem(SESSION_KEY, JSON.stringify(nextSession));
+      if (!sameUser) localStorage.removeItem(ONBOARDING_KEY);
     } catch {}
 
     setSession(nextSession);
@@ -302,13 +310,16 @@ function App() {
     setSimProfile(finalProfile);
     setSession((current) => {
       const next = { ...(current || {}), displayName: nickname, sim: finalProfile };
-      try { localStorage.setItem("senegambia-session", JSON.stringify(next)); } catch {}
+      try {
+        localStorage.setItem("senegambia-session-version", SESSION_VERSION);
+        localStorage.setItem(SESSION_KEY, JSON.stringify(next));
+        localStorage.setItem(ONBOARDING_KEY, "1");
+      } catch {}
       return next;
     });
 
-    try { localStorage.setItem("senegambia-onboarding-complete", "1"); } catch {}
     setOnboardingOpen(false);
-    setOnboardingStep(4);
+    setOnboardingStep(11);
     showNotice("Welcome to Senegambia, " + nickname + ". Your Sim is ready.");
   };
 
@@ -754,8 +765,8 @@ function App() {
               <h1>{auth === "signup" ? "Create your account" : "Welcome back"}</h1>
               <p>
                 {auth === "signup"
-                  ? "Set up your Senegambia Way account. Use any username and password for now — verification will be connected later."
-                  : "Sign in to continue your Sim and enter Senegambia."}
+                  ? "Create your Senegambia Way account. Username/password checks are temporarily disabled for this build."
+                  : "Sign in to continue. Any values are accepted while the account service is being connected."}
               </p>
             </div>
 
@@ -782,7 +793,7 @@ function App() {
                     value={authForm.name}
                     onChange={(event) => setAuthForm((current) => ({ ...current, name: event.target.value }))}
                     autoComplete="name"
-                    placeholder="What other players see"
+                    placeholder="What other players see (optional)"
                   />
                 </label>
 
