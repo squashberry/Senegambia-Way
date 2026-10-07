@@ -64,3 +64,32 @@ Fixed UI layers (header, status chips, bottom actions, cookies and dialogs) rema
 
 ### Next visual QA
 Validate the interactive world at 1440×1000, 1366×768, 1024×768, 768×1024, 430×932, 390×844 and 360×800, then tune camera framing, marker density and map artwork against the captured reference.
+
+
+## README Update — Feature 002: Gambian Flag Identity + Map Navigation Layer
+
+**Date:** 2026-10-07
+
+### Implemented
+- Switched the primary visual accent system from a generic green identity to The Gambia flag palette: red, blue, green and white.
+- Added a restrained three-color flag line to the header and reused the national blue for secondary/status accents.
+- Replaced the crown-style mark with a custom map-pin / river emblem using the Gambian flag bands.
+- Updated the favicon and browser theme color to match the new identity.
+- Made the location popover actionable with a **Center** control that zooms the selected location into view.
+- Made the Government, Coastal Plots and 400 homes chips navigate to representative Gambian locations instead of only showing a toast.
+- Reworked the signup/login preview with name/email/password validation, clearer preview-mode disclosure, and a forgot-password action.
+- Added error, focus and action styling for the revised auth flow.
+
+### Architectural impact
+The visual identity is now tokenized around `--flag-red`, `--flag-blue`, `--flag-green` and `--flag-white`, while the existing `--leaf` tokens remain as compatibility aliases for components already built around the original shell.
+
+Map navigation now has a reusable `focusPlace()` camera path, so future cards, search results and directory entries can focus any place without adding a second map-navigation implementation.
+
+### Deployment
+- GitHub repository visibility changed from private to **public**.
+- GitHub Pages was enabled with the existing GitHub Actions workflow.
+- Primary site: https://squashberry.github.io/Senegambia-Way/
+- The previous Render deployment is no longer the primary hosting target.
+
+### Next build focus
+Continue the missing product layer: richer place details, real navigation/search, persistent account integration, and full visual QA across desktop, tablet and narrow mobile breakpoints.
