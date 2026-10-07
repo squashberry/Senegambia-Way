@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
+import Onboarding from "./Onboarding";
 import "./styles.css";
 
 const places = [
@@ -81,8 +82,6 @@ function SocialIcon({ kind }) {
 
 function App() {
   const query = new URLSearchParams(window.location.search);
-  const previewMode = query.get("preview") === "1" || query.get("guest") === "1";
-
   const [cookieOpen, setCookieOpen] = useState(() => {
     try {
       return !localStorage.getItem("senegambia-cookie-choice");
@@ -91,22 +90,41 @@ function App() {
     }
   });
   const [auth, setAuth] = useState(() => {
-    if (previewMode) return null;
     const authParam = query.get("auth");
     return authParam === "login" || authParam === "signup" ? authParam : null;
+  });
+  const [session, setSession] = useState(() => {
+    try {
+      const raw = localStorage.getItem("senegambia-session");
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [onboardingOpen, setOnboardingOpen] = useState(() => {
+    try {
+      return !!localStorage.getItem("senegambia-session")
+        && localStorage.getItem("senegambia-onboarding-complete") !== "1";
+    } catch {
+      return false;
+    }
+  });
+  const [onboardingStep, setOnboardingStep] = useState(0);
+  const [simProfile, setSimProfile] = useState({
+    nickname: "",
+    shape: "Balanced",
+    height: "Average",
+    skin: "Deep",
+    hair: "Low cut",
+    outfit: "Casual",
+    bio: "",
+    trait: "Resourceful",
+    home: "Serrekunda"
   });
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [notice, setNotice] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [guestMode, setGuestMode] = useState(() => {
-    if (previewMode) return true;
-    try {
-      return localStorage.getItem("senegambia-guest") === "1";
-    } catch {
-      return false;
-    }
-  });
   const [offline, setOffline] = useState(!navigator.onLine);
   const [booting, setBooting] = useState(true);
   const [authForm, setAuthForm] = useState({
@@ -116,7 +134,6 @@ function App() {
     password: "",
     age18: false
   });
-  const [authError, setAuthError] = useState("");
   const [mapView, setMapView] = useState({ x: 0, y: 0, zoom: 1 });
   const [dragging, setDragging] = useState(false);
 
@@ -165,16 +182,6 @@ function App() {
       localStorage.setItem("senegambia-cookie-choice", choice);
     } catch {}
     setCookieOpen(false);
-  };
-
-  const startGuest = () => {
-    setGuestMode(true);
-    try {
-      localStorage.setItem("senegambia-guest", "1");
-      localStorage.removeItem("senegambia-session");
-    } catch {}
-    closeAuth();
-    showNotice("Guest mode enabled on this device.");
   };
 
   const clampZoom = (zoom) => Math.min(2.6, Math.max(1, zoom));
@@ -240,67 +247,60 @@ function App() {
   };
 
   const openAuth = (mode) => {
-    if (previewMode) {
-      showNotice("Guest preview is already open — no account is required.");
-      return;
-    }
     setAuth(mode);
-    setAuthError("");
     setSearchOpen(false);
     setAuthForm({ name: "", username: "", recoveryEmail: "", password: "", age18: false });
   };
 
-  const closeAuth = () => {
-    setAuth(null);
-    setAuthError("");
-  };
+  const closeAuth = () => setAuth(null);
 
   const submitAuth = () => {
-    const identifier = authForm.username.trim();
-    const password = authForm.password;
+    const identifier = authForm.username.trim() || "player";
+    const displayName = (auth === "signup" ? authForm.name.trim() : identifier) || "Gambian Player";
+    const alreadyOnboarded = (() => {
+      try { return localStorage.getItem("senegambia-onboarding-complete") === "1"; }
+      catch { return false; }
+    })();
 
-    if (auth === "signup") {
-      if (!authForm.name.trim()) {
-        setAuthError("Add your name to continue.");
-        return;
-      }
-      if (!/^[A-Za-z0-9_]{3,20}$/.test(identifier)) {
-        setAuthError("Username must be 3–20 letters, numbers or underscores.");
-        return;
-      }
-      if (!authForm.age18) {
-        setAuthError("Confirm that you are 18 or older to continue.");
-        return;
-      }
-      if (authForm.recoveryEmail && !/^\S+@\S+\.\S+$/.test(authForm.recoveryEmail.trim())) {
-        setAuthError("Enter a valid recovery email or leave it blank.");
-        return;
-      }
-    } else if (!identifier) {
-      setAuthError("Enter your username or email.");
-      return;
-    }
-
-    if (password.length < 6) {
-      setAuthError("Use at least 6 characters for the password.");
-      return;
-    }
+    const nextSession = {
+      displayName,
+      username: identifier,
+      mode: "local-demo",
+      createdAt: new Date().toISOString()
+    };
 
     try {
-      localStorage.setItem("senegambia-session", JSON.stringify({
-        displayName: auth === "signup" ? authForm.name.trim() : identifier,
-        username: identifier,
-        mode: "preview",
-        createdAt: new Date().toISOString()
-      }));
-      localStorage.removeItem("senegambia-guest");
+      localStorage.setItem("senegambia-session", JSON.stringify(nextSession));
+      if (!alreadyOnboarded) localStorage.removeItem("senegambia-onboarding-complete");
     } catch {}
 
-    setGuestMode(false);
-    closeAuth();
-    showNotice(auth === "signup"
-      ? "Account preview created on this device."
-      : "Signed in to the local account preview.");
+    setSession(nextSession);
+    setAuth(null);
+    setAuthForm({ name: "", username: "", recoveryEmail: "", password: "", age18: false });
+
+    if (!alreadyOnboarded) {
+      setOnboardingStep(0);
+      setOnboardingOpen(true);
+    } else {
+      showNotice("Welcome back, " + displayName + ".");
+    }
+  };
+
+  const finishOnboarding = () => {
+    const nickname = simProfile.nickname.trim() || session?.displayName || "Gambian Player";
+    const finalProfile = { ...simProfile, nickname };
+
+    setSimProfile(finalProfile);
+    setSession((current) => {
+      const next = { ...(current || {}), displayName: nickname, sim: finalProfile };
+      try { localStorage.setItem("senegambia-session", JSON.stringify(next)); } catch {}
+      return next;
+    });
+
+    try { localStorage.setItem("senegambia-onboarding-complete", "1"); } catch {}
+    setOnboardingOpen(false);
+    setOnboardingStep(4);
+    showNotice("Welcome to Senegambia, " + nickname + ". Your Sim is ready.");
   };
 
   const openSearch = () => {
@@ -550,13 +550,6 @@ function App() {
 
         <div className="map-vignette" aria-hidden="true" />
 
-        {previewMode && guestMode && (
-          <div className="preview-badge" aria-label="Guest preview mode">
-            <span>Guest preview</span>
-            <button onClick={() => openAuth("login")}>Sign in</button>
-          </div>
-        )}
-
         <div className="safe-top">
           <div className="top-stack">
             <div className="top-panel panel">
@@ -566,8 +559,17 @@ function App() {
                 <span className="online"><i /> 79k online</span>
                 <span>👀 17565k visits</span>
               </div>
-              <button className="btn btn-green header-btn" onClick={() => openAuth("signup")}>Sign up</button>
-              <button className="btn btn-mist header-btn" onClick={() => openAuth("login")}>Log in</button>
+              {session ? (
+                <button className="signed-in-chip" onClick={() => { setOnboardingStep(4); setOnboardingOpen(true); }}>
+                  <span className="signed-in-avatar">{session.displayName?.slice(0, 1).toUpperCase() || "S"}</span>
+                  <span><strong>{session.displayName}</strong><small>My Sim</small></span>
+                </button>
+              ) : (
+                <>
+                  <button className="btn btn-green header-btn" onClick={() => openAuth("signup")}>Sign up</button>
+                  <button className="btn btn-mist header-btn" onClick={() => openAuth("login")}>Log in</button>
+                </>
+              )}
             </div>
 
             <div className="mobile-stats">
@@ -629,10 +631,20 @@ function App() {
               <div className="player-copy"><b>79k Gambians</b> playing right now · free</div>
             </div>
 
-            <div className="action-grid">
-              <button className="btn btn-green primary-action" onClick={() => openAuth("signup")}>Sign up free</button>
-              <button className="btn btn-white secondary-action" onClick={() => openAuth("login")}>Log in</button>
-            </div>
+            {session ? (
+              <div className="signed-in-welcome">
+                <div className="signed-in-copy">
+                  <b>{session.displayName}</b>
+                  <span>Your Sim is active on this device.</span>
+                </div>
+                <button className="btn btn-green secondary-action" onClick={() => { setOnboardingStep(4); setOnboardingOpen(true); }}>My Sim</button>
+              </div>
+            ) : (
+              <div className="action-grid">
+                <button className="btn btn-green primary-action" onClick={() => openAuth("signup")}>Sign up free</button>
+                <button className="btn btn-white secondary-action" onClick={() => openAuth("login")}>Log in</button>
+              </div>
+            )}
 
             <div className="social-row">
               <button className="official-pill" onClick={() => showNotice("This is an official Senegambia Way channel.")}>
@@ -651,7 +663,7 @@ function App() {
             <div className="cookie-panel panel">
               <div className="cookie-copy">
                 <span className="cookie-emoji">🍪</span>
-                <p>We use a cookie to keep you signed in, and another to count visits. No ad trackers, ever. <button onClick={() => showNotice("Cookie choices stay on this device. No optional ad trackers are enabled.")}>Privacy</button></p>
+                <p>We use a cookie to remember essential settings, and another to count visits. No ad trackers, ever. <button onClick={() => showNotice("Cookie choices stay on this device. No optional ad trackers are enabled.")}>Privacy</button></p>
               </div>
               <div className="cookie-actions">
                 <button className="btn btn-mist" onClick={() => persistCookieChoice("essential")}>Essential only</button>
@@ -703,7 +715,18 @@ function App() {
         )}
       </section>
 
-      {auth && !previewMode && (
+      {onboardingOpen && session && (
+        <Onboarding
+          session={session}
+          step={onboardingStep}
+          setStep={setOnboardingStep}
+          profile={simProfile}
+          setProfile={setSimProfile}
+          onFinish={finishOnboarding}
+        />
+      )}
+
+      {auth && (
         <div className="auth-screen" role="dialog" aria-modal="true" aria-label={auth === "signup" ? "Create account" : "Sign in"}>
           <button className="auth-scrim-close" aria-label="Close authentication" onClick={closeAuth}>×</button>
 
@@ -722,8 +745,8 @@ function App() {
               <h1>{auth === "signup" ? "Create your account" : "Welcome back"}</h1>
               <p>
                 {auth === "signup"
-                  ? "Set up your Senegambia Way account. Email is optional and can be used for password recovery."
-                  : "Sign in to continue your Sim, save and place in the world."}
+                  ? "Set up your Senegambia Way account. Use any username and password for now — verification will be connected later."
+                  : "Sign in to continue your Sim and enter Senegambia."}
               </p>
             </div>
 
@@ -790,36 +813,15 @@ function App() {
               />
             </label>
 
-            {auth === "signup" && (
-              <label className="age-check">
-                <input
-                  type="checkbox"
-                  checked={authForm.age18}
-                  onChange={(event) => setAuthForm((current) => ({ ...current, age18: event.target.checked }))}
-                />
-                <span>I confirm I am 18 or older and agree to the account terms.</span>
-              </label>
-            )}
-
-            {authError && <div className="auth-error" role="alert">{authError}</div>}
-
             <button className="btn btn-green auth-submit" onClick={submitAuth}>
               {auth === "signup" ? "Sign up" : "Log in"}
             </button>
 
             {auth === "login" && (
-              <button className="auth-link" onClick={() => showNotice("Password reset starts with the username or email linked to the account.")}>
+              <button className="auth-link" onClick={() => showNotice("Password reset will be connected later.")}>
                 Forgot password?
               </button>
             )}
-
-            <div className="auth-divider"><span>or</span></div>
-
-            <button className="guest-button" onClick={startGuest}>
-              <strong>Play offline</strong>
-              <span>No account · save stays on this device</span>
-            </button>
-
             <p className="auth-footnote">
               {auth === "signup" ? "Already have an account?" : "New to Senegambia Way?"}{" "}
               <button className="auth-link-inline" onClick={() => openAuth(auth === "signup" ? "login" : "signup")}>
