@@ -100,6 +100,8 @@ export default function GameUI({session,profile,activeTab,setActiveTab,onNotice}
   const average=Math.round(Object.values(game.needs).reduce((a,b)=>a+b,0)/6);
   const nav=game.workMinutesLeft>0?WORK_NAV:IDLE_NAV;
 
+  useEffect(()=>{ if(activeTab!=="phone" && game.phoneApp) setGame(g=>({...g,phoneApp:null})); },[activeTab]);
+
   const notice=(m)=>onNotice?.(m);
   const updateNeeds=(changes,mins=10,msg)=>{
     setGame(g=>({...g,gameMinutes:g.gameMinutes+mins,needs:{...g.needs,...Object.fromEntries(Object.entries(changes).map(([k,v])=>[k,cap(g.needs[k]+v)]))}}));
@@ -243,11 +245,11 @@ export default function GameUI({session,profile,activeTab,setActiveTab,onNotice}
 
   return (
     <div className="llx-game">
-      <div className="llx-world-scene" aria-hidden="true">
+      <div className={"llx-world-scene "+(game.workMinutesLeft>0?"is-work":"")} aria-hidden="true">
         <div className="llx-sky"/><div className="llx-ground"/>
         <div className="llx-road"/><div className="llx-house"/><div className="llx-yard"/>
         <div className="llx-tree t1"/><div className="llx-tree t2"/><div className="llx-tree t3"/>
-        <div className="llx-person"><div/><i/></div>
+        <div className="llx-furniture"><i className="desk"/><i className="chair"/><i className="bin"/><i className="plant"/></div><div className="llx-person"><div/><i/></div>
       </div>
 
       <div className="llx-topbar">
