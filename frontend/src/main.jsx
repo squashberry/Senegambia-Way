@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Onboarding from "./Onboarding";
+import GameUI from "./GameUI";
 import "./styles.css";
 
 const places = [
@@ -150,6 +151,7 @@ function App() {
   });
   const [mapView, setMapView] = useState({ x: 0, y: 0, zoom: 1 });
   const [dragging, setDragging] = useState(false);
+  const [activeGameTab, setActiveGameTab] = useState("home");
 
   const mapMarkers = useMemo(() => places, []);
   const searchResults = useMemo(() => {
@@ -461,9 +463,11 @@ function App() {
     event.stopPropagation();
   };
 
+  const gameActive = Boolean(session && !onboardingOpen);
+
   return (
     <main className="app-shell">
-      <section className="world" ref={worldRef}>
+      <section className={"world" + (gameActive ? " is-game-active" : "")} ref={worldRef}>
         <div
           className={"map-interaction" + (dragging ? " is-dragging" : "")}
           tabIndex={0}
@@ -619,7 +623,7 @@ function App() {
           </div>
         )}
 
-        <div className="map-hint panel">
+        <div className={"map-hint panel" + (gameActive && activeGameTab !== "map" ? " is-game-hidden" : "")}>
           <span className="map-hint-gesture">✥</span>
           <span>Drag · pinch · scroll</span>
           <button type="button" onClick={openSearch}>Find</button>
@@ -640,7 +644,7 @@ function App() {
           </div>
         )}
 
-        <div className="safe-bottom">
+        <div className={"safe-bottom" + (gameActive ? " landing-bottom-hidden" : "")}>
           <div className="bottom-panel panel">
             <div className="players-row">
               <div className="avatars" aria-hidden="true">
@@ -678,7 +682,7 @@ function App() {
           </div>
         </div>
 
-        {cookieOpen && (
+        {cookieOpen && !gameActive && (
           <div className="cookie safe-bottom" role="dialog" aria-label="Cookies">
             <div className="cookie-panel panel">
               <div className="cookie-copy">
@@ -743,6 +747,16 @@ function App() {
           profile={simProfile}
           setProfile={setSimProfile}
           onFinish={finishOnboarding}
+        />
+      )}
+
+      {gameActive && (
+        <GameUI
+          session={session}
+          profile={simProfile}
+          activeTab={activeGameTab}
+          setActiveTab={setActiveGameTab}
+          onNotice={showNotice}
         />
       )}
 
