@@ -1,0 +1,62 @@
+{
+  "canvas": {"width": 1200, "height": 800, "coordinate_system": "fictional gameplay layout, not GPS"},
+  "map_goal": "Make the first playable map immediately readable as Greater Banjul/The Gambia instead of a renamed Lagos map.",
+  "zones": [
+    {"id":"banjul","label":"Banjul","x":180,"y":300,"size":"medium","priority":1},
+    {"id":"bakau_fajara","label":"Bakau / Fajara","x":410,"y":210,"size":"medium","priority":2},
+    {"id":"serrekunda","label":"Serrekunda","x":470,"y":430,"size":"large","priority":1},
+    {"id":"kotu_kololi_senegambia","label":"Kotu / Kololi / Senegambia","x":690,"y":300,"size":"large","priority":1},
+    {"id":"sukuta_bijilo_brufut","label":"Sukuta / Bijilo / Brufut","x":800,"y":500,"size":"large","priority":2},
+    {"id":"brikama","label":"Brikama","x":920,"y":650,"size":"large","priority":3},
+    {"id":"yundum","label":"Yundum / Airport","x":720,"y":650,"size":"small","priority":3}
+  ],
+  "landmarks": [
+    {"name":"Arch 22","zone":"banjul","x":190,"y":275},
+    {"name":"Albert Market","zone":"banjul","x":150,"y":355},
+    {"name":"High Court of The Gambia","zone":"banjul","x":220,"y":340},
+    {"name":"Serrekunda Market","zone":"serrekunda","x":455,"y":425},
+    {"name":"Westfield Junction","zone":"serrekunda","x":525,"y":390},
+    {"name":"Pipeline Mosque","zone":"serrekunda","x":500,"y":335},
+    {"name":"Fajara Club & Golf Course","zone":"bakau_fajara","x":390,"y":225},
+    {"name":"Independence Stadium","zone":"bakau_fajara","x":420,"y":170},
+    {"name":"Senegambia Strip","zone":"kotu_kololi_senegambia","x":700,"y":265},
+    {"name":"Kololi Beach","zone":"kotu_kololi_senegambia","x":755,"y":210},
+    {"name":"Kotu Beach","zone":"kotu_kololi_senegambia","x":625,"y":215},
+    {"name":"Bijilo Forest Park","zone":"sukuta_bijilo_brufut","x":730,"y":365},
+    {"name":"Sukuta Market","zone":"sukuta_bijilo_brufut","x":825,"y":445},
+    {"name":"Brikama Market","zone":"brikama","x":900,"y":620}
+  ],
+  "transport_nodes": [
+    {"name":"Westfield Junction","zone":"serrekunda","role":"primary urban interchange"},
+    {"name":"Banjul Ferry Terminal","zone":"banjul","role":"north-bank connection"},
+    {"name":"Senegambia taxi rank","zone":"kotu_kololi_senegambia","role":"tourism/nightlife transport"},
+    {"name":"Serrekunda taxi stand","zone":"serrekunda","role":"local shared taxi hub"}
+  ],
+  "roads": [
+    {"name":"Kairaba Avenue","connects":["bakau_fajara","serrekunda"],"type":"major"},
+    {"name":"Bertil Harding Highway","connects":["serrekunda","kotu_kololi_senegambia"],"type":"major"},
+    {"name":"Banjul-Serrekunda corridor","connects":["banjul","serrekunda"],"type":"major"},
+    {"name":"Brikama Highway","connects":["serrekunda","sukuta_bijilo_brufut","brikama"],"type":"major"},
+    {"name":"Coastal road","connects":["bakau_fajara","kotu_kololi_senegambia","sukuta_bijilo_brufut"],"type":"coastal"}
+  ],
+  "environment": {
+    "atlantic_coast": "western edge",
+    "river_gambia": "northern/eastern water boundary around Banjul",
+    "visual_language": ["sand", "palms", "compound walls", "busy roadside shops", "taxis", "gelly-gellys", "market stalls", "coastal hotels", "low-rise streets"],
+    "do_not_use_as_default": ["Lagos lagoon skyline", "danfo-only transport", "high-rise Lagos business district", "Lagos-specific road signs"]
+  },
+  "spawn_design": {
+    "default_new_player": {
+      "zone": "serrekunda",
+      "reason": "It should feel like ordinary Gambian daily life rather than starting in the tourist strip."
+    },
+    "premium_player": {
+      "zone": "kotu_kololi_senegambia",
+      "reason": "Tourist-facing nightlife and higher-spend businesses."
+    },
+    "government_player": {
+      "zone": "banjul",
+      "reason": "Capital and civic systems."
+    }
+  }
+}
