@@ -93,3 +93,40 @@ Map navigation now has a reusable `focusPlace()` camera path, so future cards, s
 
 ### Next build focus
 Continue the missing product layer: richer place details, real navigation/search, persistent account integration, and full visual QA across desktop, tablet and narrow mobile breakpoints.
+
+
+## README Update — Feature 003: Reference-Informed Auth + Guest Preview + Product Polish
+
+**Date:** 2026-10-07
+
+### Implemented
+- Reworked the auth experience from a generic email/password modal into a dedicated Senegambia Way account screen.
+- Added username-or-email sign-in, password validation, Forgot password entry point, account creation, optional recovery email, age confirmation, and Play offline.
+- Added a persistent local guest/session preview using browser storage so the UI can be exercised without a backend.
+- Added an explicit URL preview bypass:
+  - `https://squashberry.github.io/Senegambia-Way/?preview=1`
+  - `?guest=1` is also accepted.
+- Added a place finder overlay with keyboard `/` shortcut, live filtering, and camera focus for matching locations.
+- Added online/offline detection with a non-blocking offline banner.
+- Added a short loading/splash layer that protects the first paint while the world initializes.
+- Persisted the cookie-choice interaction locally instead of closing it only for the current render.
+- Converted placeholder social actions into useful share/copy behaviors.
+- Added a custom GitHub Pages `404.html` with a direct return link and guest-preview link.
+
+### Auth reference alignment
+The revised flow follows the reference behavior surfaced in current Lagos Life support material: username/email login, password recovery, account creation, and an offline/guest path rather than an email-only authentication form.
+
+### Architectural impact
+The page now has three distinct interaction layers:
+`world → discovery/navigation overlays → account/guest state`.
+
+Guest and local preview state are deliberately isolated in browser storage so a real account service can later replace the preview persistence without changing the world-map interaction API.
+
+### Preview / QA URL
+Use:
+`https://squashberry.github.io/Senegambia-Way/?preview=1`
+
+This bypasses account UI and opens the world in guest preview mode.
+
+### Next build focus
+Finish the remaining game-directory layer, refine place detail cards and mobile camera framing, then connect real account persistence/backend APIs.
