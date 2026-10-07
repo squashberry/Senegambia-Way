@@ -1,0 +1,173 @@
+{
+  "game": {
+    "title": "Senegambia Way",
+    "country": "The Gambia",
+    "currency": "Gambian Dalasi",
+    "currency_symbol": "D",
+    "locale": "en-GM",
+    "design_direction": "A living Gambian life simulator using real Greater Banjul area geography, Gambian food, transport, institutions, businesses, culture and slang while preserving the captured game's existing gameplay structure."
+  },
+  "geography": {
+    "principle": "Do not map Lagos neighbourhoods one-for-one when the real Gambian geography behaves differently. Use Gambian places according to their actual character.",
+    "zones": [
+      {
+        "id": "serrekunda",
+        "name": "Serrekunda",
+        "role": "Everyday urban/commercial core",
+        "feel": ["busy", "affordable", "crowded", "markets", "transport", "everyday Gambian life"],
+        "anchors": ["Serrekunda Market", "Westfield Junction", "Kairaba Avenue", "Pipeline Mosque"],
+        "gameplay": ["street shopping", "small businesses", "shared taxis", "gelly-gelly routes", "food stalls", "jobs"]
+      },
+      {
+        "id": "banjul",
+        "name": "Banjul",
+        "role": "Capital and government district",
+        "feel": ["historic", "official", "compact", "waterfront", "government"],
+        "anchors": ["Arch 22", "Albert Market", "State House area", "High Court of The Gambia", "St. Mary's Cathedral"],
+        "gameplay": ["government", "politics", "court", "markets", "formal jobs", "ferry access"]
+      },
+      {
+        "id": "bakau_fajara",
+        "name": "Bakau / Fajara",
+        "role": "Older coastal/residential and leisure zone",
+        "feel": ["coastal", "residential", "sports", "local leisure"],
+        "anchors": ["Independence Stadium", "Fajara Club", "Fajara Golf Course", "Kachikally area"],
+        "gameplay": ["football", "golf", "fitness", "beach", "family activities", "local businesses"]
+      },
+      {
+        "id": "kotu_kololi_senegambia",
+        "name": "Kotu / Kololi / Senegambia",
+        "role": "Tourism, nightlife and higher-spend coastal strip",
+        "feel": ["tourist-heavy", "nightlife", "restaurants", "hotels", "beach", "shopping"],
+        "anchors": ["Senegambia Strip", "Kololi Beach", "Kotu Beach", "Bijilo Forest Park"],
+        "gameplay": ["nightlife", "hospitality jobs", "tour guiding", "restaurants", "clubs", "beach activities"]
+      },
+      {
+        "id": "sukuta_bijilo_brufut",
+        "name": "Sukuta / Bijilo / Brufut",
+        "role": "Growing residential/suburban belt",
+        "feel": ["expanding", "mixed-income", "residential", "new businesses"],
+        "anchors": ["Sukuta Market", "Bijilo Forest Park", "Brufut coastal area"],
+        "gameplay": ["housing", "construction", "small shops", "family life", "commuting"]
+      },
+      {
+        "id": "brikama",
+        "name": "Brikama",
+        "role": "Major West Coast inland town and craft/market hub",
+        "feel": ["busy town", "crafts", "markets", "family", "regional transport"],
+        "anchors": ["Brikama market area", "craft workshops"],
+        "gameplay": ["crafts", "trading", "transport", "regional jobs", "market events"]
+      }
+    ],
+    "future_expansion": [
+      "Tanji",
+      "Sanyang",
+      "Gunjur",
+      "Kartong",
+      "Lamin",
+      "Abuko",
+      "Barra",
+      "Farafenni",
+      "Janjanbureh"
+    ]
+  },
+  "place_localization": [
+    {"from": "Afrika Shrine", "to": "Kora & Mbalax Live", "zone": "serrekunda", "type": "music", "real_world": false},
+    {"from": "Viewing Centre", "to": "Match Day Viewing", "zone": "serrekunda", "type": "football", "real_world": false},
+    {"from": "Amala Shitta", "to": "Domoda Spot", "zone": "serrekunda", "type": "food", "real_world": false},
+    {"from": "CcHub", "to": "Gambia Tech Hub", "zone": "kanifing", "type": "technology", "real_world": false},
+    {"from": "Market", "to": "Serrekunda Market", "zone": "serrekunda", "type": "market", "real_world": true},
+    {"from": "Freedom Park", "to": "Arch 22 Square", "zone": "banjul", "type": "landmark", "real_world": true},
+    {"from": "i-Fitness", "to": "Fajara Club Gym", "zone": "bakau_fajara", "type": "fitness", "real_world": true},
+    {"from": "Office", "to": "Kairaba Office District", "zone": "serrekunda", "type": "work", "real_world": true},
+    {"from": "Quilox", "to": "Calypso Nightlife", "zone": "kotu_kololi_senegambia", "type": "nightlife", "real_world": true},
+    {"from": "Canopy Walk", "to": "Makasutu Nature Walk", "zone": "future_inland", "type": "nature", "real_world": true},
+    {"from": "The Palms", "to": "Kololi Shopping Centre", "zone": "kotu_kololi_senegambia", "type": "shopping", "real_world": false},
+    {"from": "The Library", "to": "National Library", "zone": "banjul", "type": "education", "real_world": true},
+    {"from": "Beach", "to": "Kololi Beach", "zone": "kotu_kololi_senegambia", "type": "beach", "real_world": true},
+    {"from": "General Hospital", "to": "Edward Francis Small Teaching Hospital", "zone": "banjul", "type": "healthcare", "real_world": true},
+    {"from": "Mama Bisi's Salon", "to": "Awa's Beauty Spot", "zone": "serrekunda", "type": "beauty", "real_world": false},
+    {"from": "Ivory Rooftop", "to": "Senegambia Rooftop", "zone": "kotu_kololi_senegambia", "type": "restaurant", "real_world": false},
+    {"from": "Police Station", "to": "Gambia Police Station", "zone": "serrekunda", "type": "police", "real_world": true},
+    {"from": "Church", "to": "St. Mary's Cathedral", "zone": "banjul", "type": "church", "real_world": true},
+    {"from": "Mosque", "to": "Pipeline Mosque", "zone": "serrekunda", "type": "mosque", "real_world": true},
+    {"from": "Naija Radio", "to": "West Coast Radio", "zone": "kotu_kololi_senegambia", "type": "radio", "real_world": true},
+    {"from": "Polling Unit", "to": "Polling Station", "zone": "all", "type": "civic", "real_world": true},
+    {"from": "Eko Hotels", "to": "Coco Ocean Resort", "zone": "bakau_fajara", "type": "hotel", "real_world": true},
+    {"from": "Polanco Motors", "to": "Gambia Motors", "zone": "serrekunda", "type": "automotive", "real_world": false},
+    {"from": "Boat Cruise", "to": "River Gambia Cruise", "zone": "banjul", "type": "tourism", "real_world": false},
+    {"from": "Ikoyi Golf Club", "to": "Fajara Club & Golf Course", "zone": "bakau_fajara", "type": "golf", "real_world": true},
+    {"from": "High Court", "to": "High Court of The Gambia", "zone": "banjul", "type": "court", "real_world": true},
+    {"from": "UNILAG", "to": "University of The Gambia", "zone": "future_faraba", "type": "university", "real_world": true},
+    {"from": "Eko Casino", "to": "Casino Senegambia", "zone": "kotu_kololi_senegambia", "type": "casino", "real_world": true},
+    {"from": "MindSpace", "to": "KMC Creative Hub", "zone": "serrekunda", "type": "coworking", "real_world": false},
+    {"from": "Stadium", "to": "Independence Stadium", "zone": "bakau_fajara", "type": "stadium", "real_world": true},
+    {"from": "Airport · Coming soon", "to": "Banjul International Airport · Coming soon", "zone": "future_yundum", "type": "airport", "real_world": true},
+    {"from": "Refinery · Coming soon", "to": "Fuel Depot · Coming soon", "zone": "future_industrial", "type": "industry", "real_world": false}
+  ],
+  "language_and_culture": {
+    "default_ui_language": "English",
+    "street_slang_priority": ["Wolof", "Gambian English", "common local expressions"],
+    "character_language_pool": ["Wolof", "Mandinka", "Fula", "Jola", "English"],
+    "rule": "Do not replace every Nigerian/Yoruba cultural reference with Wolof. Character backgrounds and dialogue can reflect multiple Gambian communities.",
+    "music": ["afrobeats", "mbalax", "kora", "sabar", "reggae", "hip-hop"],
+    "social_drink": "Attaya",
+    "national_flavour": "groundnuts",
+    "food": ["benachin", "domoda", "chicken yassa", "fish yassa", "superkanja", "afra", "fresh grilled fish", "wonjo", "baobab juice", "ginger drink"]
+  },
+  "transport": {
+    "local_taxi": "yellow taxi",
+    "tourist_taxi": "green tourist taxi",
+    "minibus": "gelly-gelly",
+    "major_hub": "Westfield Junction",
+    "ferry": "Banjul–Barra Ferry",
+    "road_feel": "replace danfo/Lagos traffic references with yellow taxis, gelly-gellys, shared rides and realistic Greater Banjul congestion"
+  },
+  "institutions": {
+    "police": "Gambia Police Force",
+    "utilities": "NAWEC",
+    "national_government": "Government of The Gambia",
+    "capital": "Banjul",
+    "central_bank": "Central Bank of The Gambia",
+    "courts": "High Court of The Gambia",
+    "elections": "Polling Station / Independent Electoral Commission",
+    "health": "Edward Francis Small Teaching Hospital",
+    "university": "University of The Gambia"
+  },
+  "money": {
+    "currency_name": "Dalasi",
+    "symbol": "D",
+    "iso": "GMD",
+    "display_examples": ["D50", "D150", "D1,000"],
+    "avoid": ["₦", "naira", "NGN"]
+  },
+  "mobile_money": {
+    "primary": ["QMoney"],
+    "secondary": ["Afrimoney"],
+    "design_rule": "Mobile-money interactions should feel Gambian rather than using Nigerian banking or USSD branding."
+  },
+  "replacement_rules": {
+    "Lagos Life": "Senegambia Way",
+    "Lagos": "The Gambia / local zone name",
+    "Nigeria": "The Gambia",
+    "Naira": "Dalasi",
+    "₦": "D",
+    "Lagosians": "Gambians",
+    "Naija Radio": "West Coast Radio",
+    "NEPA": "NAWEC",
+    "EFCC": "Gambia Police / relevant Gambian authority",
+    "Polling Unit": "Polling Station"
+  },
+  "worldbuilding_rules": [
+    "Keep the existing game systems and interaction model unless a Gambian replacement requires a gameplay change.",
+    "Prefer real Gambian anchors for named places and use fictional names only when there is no sensible one-to-one real venue.",
+    "Do not imply that Banjul, Serrekunda, Kololi and Senegambia are interchangeable. They should feel different in the game.",
+    "Keep Serrekunda as the affordable everyday/commercial heart.",
+    "Keep Senegambia/Kololi as the nightlife and tourism-heavy social zone.",
+    "Keep Banjul as the compact capital/government zone.",
+    "Use Bakau/Fajara for sports, older coastal neighbourhoods and middle-to-upper-end leisure.",
+    "Use Sukuta, Bijilo, Brufut and Brikama for expansion and more residential/regional gameplay.",
+    "Use Gambian food and transport terms in missions, NPC dialogue, ads and random events rather than only changing place labels.",
+    "Avoid copying real brand identities too closely when a fictional in-game business can do the job; real landmarks and public institutions are preferred as anchors."
+  ]
+}
