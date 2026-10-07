@@ -91,6 +91,7 @@ function App() {
     }
   });
   const [auth, setAuth] = useState(() => {
+    if (previewMode) return null;
     const authParam = query.get("auth");
     return authParam === "login" || authParam === "signup" ? authParam : null;
   });
@@ -239,6 +240,10 @@ function App() {
   };
 
   const openAuth = (mode) => {
+    if (previewMode) {
+      showNotice("Guest preview is already open — no account is required.");
+      return;
+    }
     setAuth(mode);
     setAuthError("");
     setSearchOpen(false);
@@ -545,7 +550,7 @@ function App() {
 
         <div className="map-vignette" aria-hidden="true" />
 
-        {guestMode && (
+        {previewMode && guestMode && (
           <div className="preview-badge" aria-label="Guest preview mode">
             <span>Guest preview</span>
             <button onClick={() => openAuth("login")}>Sign in</button>
@@ -698,60 +703,78 @@ function App() {
         )}
       </section>
 
-      {auth && (
+      {auth && !previewMode && (
         <div className="auth-screen" role="dialog" aria-modal="true" aria-label={auth === "signup" ? "Create account" : "Sign in"}>
+          <button className="auth-scrim-close" aria-label="Close authentication" onClick={closeAuth}>×</button>
+
           <section className="auth-page panel">
             <div className="auth-page-stripe" aria-hidden="true" />
-            <div className="auth-page-top">
-              <button className="auth-back" onClick={closeAuth}>← Back to map</button>
-              <span className="auth-mode-chip">{guestMode ? "Guest mode" : "Account"}</span>
+
+            <div className="auth-brand">
+              <div className="auth-mark"><Logo /></div>
+              <div>
+                <p className="eyebrow">Senegambia Way</p>
+                <strong>Live your Gambian story</strong>
+              </div>
             </div>
 
-            <div className="auth-mark"><Logo /></div>
-            <p className="eyebrow">Senegambia Way</p>
-            <h1>{auth === "signup" ? "Create your account" : "Welcome back"}</h1>
-            <p className="auth-subtitle">
-              {auth === "signup"
-                ? "Create an account preview and keep your place in the world."
-                : "Use your username or recovery email to continue."}
-            </p>
+            <div className="auth-head">
+              <h1>{auth === "signup" ? "Create your account" : "Welcome back"}</h1>
+              <p>
+                {auth === "signup"
+                  ? "Set up your Senegambia Way account. Email is optional and can be used for password recovery."
+                  : "Sign in to continue your Sim, save and place in the world."}
+              </p>
+            </div>
 
             <div className="auth-switch" role="tablist" aria-label="Authentication">
-              <button className={auth === "login" ? "is-active" : ""} onClick={() => openAuth("login")}>Sign in</button>
-              <button className={auth === "signup" ? "is-active" : ""} onClick={() => openAuth("signup")}>Create account</button>
+              <button className={auth === "login" ? "is-active" : ""} onClick={() => openAuth("login")}>Log in</button>
+              <button className={auth === "signup" ? "is-active" : ""} onClick={() => openAuth("signup")}>Sign up</button>
             </div>
 
             {auth === "signup" && (
-              <label>
-                Name
-                <input
-                  value={authForm.name}
-                  onChange={(event) => setAuthForm((current) => ({ ...current, name: event.target.value }))}
-                  autoComplete="name"
-                  placeholder="Your name"
-                />
-              </label>
+              <>
+                <label>
+                  Username
+                  <input
+                    value={authForm.username}
+                    onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))}
+                    autoComplete="username"
+                    placeholder="Choose a username"
+                  />
+                </label>
+
+                <label>
+                  Display name
+                  <input
+                    value={authForm.name}
+                    onChange={(event) => setAuthForm((current) => ({ ...current, name: event.target.value }))}
+                    autoComplete="name"
+                    placeholder="What other players see"
+                  />
+                </label>
+
+                <label>
+                  Email <span className="optional">optional</span>
+                  <input
+                    value={authForm.recoveryEmail}
+                    onChange={(event) => setAuthForm((current) => ({ ...current, recoveryEmail: event.target.value }))}
+                    autoComplete="email"
+                    inputMode="email"
+                    placeholder="you@example.com"
+                  />
+                </label>
+              </>
             )}
 
-            <label>
-              Username or email
-              <input
-                value={authForm.username}
-                onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))}
-                autoComplete="username"
-                placeholder="username or email"
-              />
-            </label>
-
-            {auth === "signup" && (
+            {auth === "login" && (
               <label>
-                Recovery email <span className="optional">optional</span>
+                Username or email
                 <input
-                  value={authForm.recoveryEmail}
-                  onChange={(event) => setAuthForm((current) => ({ ...current, recoveryEmail: event.target.value }))}
-                  autoComplete="email"
-                  inputMode="email"
-                  placeholder="you@example.com"
+                  value={authForm.username}
+                  onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))}
+                  autoComplete="username"
+                  placeholder="Username or email"
                 />
               </label>
             )}
@@ -763,7 +786,7 @@ function App() {
                 value={authForm.password}
                 onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))}
                 autoComplete={auth === "signup" ? "new-password" : "current-password"}
-                placeholder="At least 6 characters"
+                placeholder="Password"
               />
             </label>
 
@@ -781,18 +804,28 @@ function App() {
             {authError && <div className="auth-error" role="alert">{authError}</div>}
 
             <button className="btn btn-green auth-submit" onClick={submitAuth}>
-              {auth === "signup" ? "Create account" : "Sign in"}
+              {auth === "signup" ? "Sign up" : "Log in"}
             </button>
 
             {auth === "login" && (
-              <button className="auth-link" onClick={() => showNotice("Password reset will use the production account service when connected.")}>
+              <button className="auth-link" onClick={() => showNotice("Password reset starts with the username or email linked to the account.")}>
                 Forgot password?
               </button>
             )}
 
             <div className="auth-divider"><span>or</span></div>
-            <button className="btn btn-mist guest-button" onClick={startGuest}>Play offline</button>
-            <p className="guest-copy">Guest progress stays on this device.</p>
+
+            <button className="guest-button" onClick={startGuest}>
+              <strong>Play offline</strong>
+              <span>No account · save stays on this device</span>
+            </button>
+
+            <p className="auth-footnote">
+              {auth === "signup" ? "Already have an account?" : "New to Senegambia Way?"}{" "}
+              <button className="auth-link-inline" onClick={() => openAuth(auth === "signup" ? "login" : "signup")}>
+                {auth === "signup" ? "Log in" : "Sign up"}
+              </button>
+            </p>
           </section>
         </div>
       )}
