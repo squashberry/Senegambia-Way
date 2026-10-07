@@ -95,51 +95,55 @@ Map navigation now has a reusable `focusPlace()` camera path, so future cards, s
 Continue the missing product layer: richer place details, real navigation/search, persistent account integration, and full visual QA across desktop, tablet and narrow mobile breakpoints.
 
 
-## README Update — Feature 003: Reference-Informed Auth + Guest Preview + Product Polish
+## README Update — Feature 003: Reference-Informed Auth + Local Session
 
 **Date:** 2026-10-07
 
 ### Implemented
-- Reworked the auth experience from a generic email/password modal into a dedicated Senegambia Way account screen.
-- Added username-or-email sign-in, password validation, Forgot password entry point, account creation, optional recovery email, age confirmation, and Play offline.
-- Added a persistent local guest/session preview using browser storage so the UI can be exercised without a backend.
-- Added an explicit URL preview bypass:
-  - `https://squashberry.github.io/Senegambia-Way/?preview=1`
-  - `?guest=1` is also accepted.
+- Reworked the auth experience into a dedicated Senegambia Way account screen.
+- Added username-or-email sign-in and account creation with a local demo session while the real backend is still pending.
+- Temporarily accepts arbitrary credentials for sign-in testing; no server verification is performed yet.
+- Added a persistent local session so the signed-in state survives a refresh on the same device.
 - Added a place finder overlay with keyboard `/` shortcut, live filtering, and camera focus for matching locations.
 - Added online/offline detection with a non-blocking offline banner.
 - Added a short loading/splash layer that protects the first paint while the world initializes.
 - Persisted the cookie-choice interaction locally instead of closing it only for the current render.
 - Converted placeholder social actions into useful share/copy behaviors.
-- Added a custom GitHub Pages `404.html` with a direct return link and guest-preview link.
-
-### Auth reference alignment
-The revised flow follows the reference behavior surfaced in current Lagos Life support material: username/email login, password recovery, account creation, and an offline/guest path rather than an email-only authentication form.
+- Added a custom GitHub Pages `404.html` with a direct return link.
 
 ### Architectural impact
-The page now has three distinct interaction layers:
-`world → discovery/navigation overlays → account/guest state`.
+The account state now follows:
+`world → discovery/navigation overlays → auth → signed-in session → onboarding → game world`.
 
-Guest and local preview state are deliberately isolated in browser storage so a real account service can later replace the preview persistence without changing the world-map interaction API.
+A real account service can later replace local session storage without changing the world-map interaction API.
 
-### Preview / QA URL
-Use:
-`https://squashberry.github.io/Senegambia-Way/?preview=1`
-
-This bypasses account UI and opens the world in guest preview mode.
-
-### Next build focus
-Finish the remaining game-directory layer, refine place detail cards and mobile camera framing, then connect real account persistence/backend APIs.
-
-
-## README Update — Feature 004: Hard Preview Bypass + Auth Reference Repair
+## README Update — Feature 004: Auth Flow Repair + GitHub Pages Base Path
 
 **Date:** 2026-10-07
 
 ### Implemented
-- `?preview=1` and `?guest=1` now hard-disable authentication at both state initialization and render time.
-- Auth buttons are guarded in preview mode so they cannot reopen the account screen.
-- Reworked the account screen to follow the reference behavior documented by the official Lagos Life support material: username/email login, Forgot password, Sign up, and Play offline. citeturn157568search0
 - Rebuilt the auth styling as a fully scoped component system instead of relying on generic panel styling.
-- Added explicit field styling, button states, account tabs, brand header, flag stripe, recovery link, offline option and mobile bottom-sheet behavior.
-- Changed the GitHub Pages Vite base to the explicit project path /Senegambia-Way/ to make generated asset URLs deterministic on GitHub Pages.
+- Added explicit field styling, button states, account tabs, brand header, flag stripe, recovery link and mobile bottom-sheet behavior.
+- Removed the temporary guest/preview URL and state from the product flow.
+- Changed the GitHub Pages Vite base to the explicit project path `/Senegambia-Way/` so generated asset URLs remain deterministic.
+
+## README Update — Feature 005: Gambian Sim Onboarding
+
+**Date:** 2026-10-07
+
+### Implemented
+- Added a real first-run onboarding experience immediately after a successful sign-in or sign-up.
+- Added five steps: Meet your Sim, Tell your story, Choose a trait, Pick your start, Ready.
+- Character setup includes shape, height, skin tone, hair and first-day style.
+- Story setup includes nickname and a short public bio.
+- Trait choices include Resourceful, Social, Driven, Chill, Bold and Creative.
+- Starting neighbourhoods include Serrekunda, Bakau, Fajara and Brikama.
+- Added progress indicators, Back/Continue controls, responsive mobile presentation and a completion state.
+- Persisted the completed Sim profile locally with the signed-in session.
+- Replaced signed-out buttons after login with an explicit signed-in identity chip and My Sim entry point, so the app no longer looks like the user is still behind authentication.
+
+### Product alignment
+The flow follows the current reference game's documented first-start sequence: design the character's shape, height and look; add a line or two about who they are; pick a trait; then choose a place to start. The sequence is localized into a Gambian setting for Senegambia Way.
+
+### Next build focus
+Continue the simulator layer after onboarding: needs, time, money, homes, careers, travel, shared places and profile settings.
