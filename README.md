@@ -147,3 +147,26 @@ The flow follows the current reference game's documented first-start sequence: d
 
 ### Next build focus
 Continue the simulator layer after onboarding: needs, time, money, homes, careers, travel, shared places and profile settings.
+
+
+## README Update — Feature 006: Sequential 12-step Account-to-Sim Flow
+
+**Date:** 2026-10-07
+
+### Implemented
+- Fixed the temporary-session bug that allowed an old local demo session to skip authentication.
+- Versioned the temporary local session so pre-existing demo storage is ignored and a fresh browser session begins with the account screen.
+- Authentication now completes before onboarding opens.
+- Rebuilt onboarding as a sequential **12-screen** flow instead of one large form.
+- Step 1 uses the reference-style format: **1/12 — Your name** / **What is your full/public name?**
+- The remaining screens break the character setup into single decisions: shape, height, skin tone, hair, outfit, fabric, two traits, lifetime dream, birth lottery, and home.
+- Added a birth-lottery reveal rather than letting the player directly choose the starting background.
+- Added Gambian starting homes: Serrekunda, Bakau, Fajara and Brikama.
+- Added Back/Continue controls, progress bar, mobile bottom-sheet behavior and a final Enter Senegambia action.
+- Saved Sim data is restored only from the current versioned session, not the previous preview/demo storage.
+
+### Reference alignment
+The current Lagos Life flow is documented as account creation followed by Sim creation with **Look → Personality → Dream → Birth lottery → Home**; the sequential Gambian flow decomposes those categories into one decision per screen while preserving that order. urlLagos Life beginner flow referencehttps://lagoslifeguide.com/beginner-guide/
+
+### Next build focus
+Continue with the actual simulation layer after the player enters Senegambia: needs, time, money, careers, homes, travel, relationships and profile/settings.
