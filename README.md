@@ -77,7 +77,7 @@ Validate the interactive world at 1440×1000, 1366×768, 1024×768, 768×1024, 4
 - Updated the favicon and browser theme color to match the new identity.
 - Made the location popover actionable with a **Center** control that zooms the selected location into view.
 - Made the Government, Coastal Plots and 400 homes chips navigate to representative Gambian locations instead of only showing a toast.
-- Reworked the signup/login preview with name/email/password validation, clearer preview-mode disclosure, and a forgot-password action.
+- Reworked the signup/login experience with name/email/password fields, clearer account-state handling, and a forgot-password action.
 - Added error, focus and action styling for the revised auth flow.
 
 ### Architectural impact
@@ -124,7 +124,7 @@ A real account service can later replace local session storage without changing 
 ### Implemented
 - Rebuilt the auth styling as a fully scoped component system instead of relying on generic panel styling.
 - Added explicit field styling, button states, account tabs, brand header, flag stripe, recovery link and mobile bottom-sheet behavior.
-- Removed the temporary guest/preview URL and state from the product flow.
+- Removed the temporary guest-preview URL and state from the product flow.
 - Changed the GitHub Pages Vite base to the explicit project path `/Senegambia-Way/` so generated asset URLs remain deterministic.
 
 ## README Update — Feature 005: Gambian Sim Onboarding
@@ -163,10 +163,12 @@ Continue the simulator layer after onboarding: needs, time, money, homes, career
 - Added a birth-lottery reveal rather than letting the player directly choose the starting background.
 - Added Gambian starting homes: Serrekunda, Bakau, Fajara and Brikama.
 - Added Back/Continue controls, progress bar, mobile bottom-sheet behavior and a final Enter Senegambia action.
-- Saved Sim data is restored only from the current versioned session, not the previous preview/demo storage.
+- Saved Sim data is restored only from the current versioned session, not the previous demo storage.
 
 ### Reference alignment
-The current Lagos Life flow is documented as account creation followed by Sim creation with **Look → Personality → Dream → Birth lottery → Home**; the sequential Gambian flow decomposes those categories into one decision per screen while preserving that order. urlLagos Life beginner flow referencehttps://lagoslifeguide.com/beginner-guide/
+The current Lagos Life flow is documented as account creation followed by Sim creation with **Look → Personality → Dream → Birth lottery → Home**; the sequential Gambian flow decomposes those categories into one decision per screen while preserving that order.
+
+Reference: https://lagoslifeguide.com/beginner-guide/
 
 ### Next build focus
 Continue with the actual simulation layer after the player enters Senegambia: needs, time, money, careers, homes, travel, relationships and profile/settings.
