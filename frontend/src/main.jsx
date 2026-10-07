@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
@@ -80,20 +80,101 @@ function SocialIcon({ kind }) {
 }
 
 function App() {
-  const [cookieOpen, setCookieOpen] = useState(true);
-  const [auth, setAuth] = useState(null);
+  const query = new URLSearchParams(window.location.search);
+  const previewMode = query.get("preview") === "1" || query.get("guest") === "1";
+
+  const [cookieOpen, setCookieOpen] = useState(() => {
+    try {
+      return !localStorage.getItem("senegambia-cookie-choice");
+    } catch {
+      return true;
+    }
+  });
+  const [auth, setAuth] = useState(() => {
+    const authParam = query.get("auth");
+    return authParam === "login" || authParam === "signup" ? authParam : null;
+  });
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [notice, setNotice] = useState(null);
-  const [authForm, setAuthForm] = useState({ name: "", email: "", password: "" });
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [guestMode, setGuestMode] = useState(() => {
+    if (previewMode) return true;
+    try {
+      return localStorage.getItem("senegambia-guest") === "1";
+    } catch {
+      return false;
+    }
+  });
+  const [offline, setOffline] = useState(!navigator.onLine);
+  const [booting, setBooting] = useState(true);
+  const [authForm, setAuthForm] = useState({
+    name: "",
+    username: "",
+    recoveryEmail: "",
+    password: "",
+    age18: false
+  });
   const [authError, setAuthError] = useState("");
   const [mapView, setMapView] = useState({ x: 0, y: 0, zoom: 1 });
   const [dragging, setDragging] = useState(false);
 
   const mapMarkers = useMemo(() => places, []);
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return mapMarkers.slice(0, 8);
+    return mapMarkers.filter((place) => place.name.toLowerCase().includes(q)).slice(0, 10);
+  }, [mapMarkers, searchQuery]);
+
   const pointers = React.useRef(new Map());
   const dragState = React.useRef(null);
   const pinchState = React.useRef(null);
   const worldRef = React.useRef(null);
+
+  useEffect(() => {
+    const bootTimer = window.setTimeout(() => setBooting(false), 520);
+    const handleOnline = () => setOffline(false);
+    const handleOffline = () => setOffline(true);
+    const handleKeyDown = (event) => {
+      if (event.key === "/" && !auth && !searchOpen && document.activeElement?.tagName !== "INPUT") {
+        event.preventDefault();
+        setSearchOpen(true);
+        window.setTimeout(() => document.getElementById("place-search")?.focus(), 0);
+      }
+      if (event.key === "Escape") {
+        if (searchOpen) setSearchOpen(false);
+        else if (auth) closeAuth();
+      }
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.clearTimeout(bootTimer);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [auth, searchOpen]);
+
+  const persistCookieChoice = (choice) => {
+    try {
+      localStorage.setItem("senegambia-cookie-choice", choice);
+    } catch {}
+    setCookieOpen(false);
+  };
+
+  const startGuest = () => {
+    setGuestMode(true);
+    try {
+      localStorage.setItem("senegambia-guest", "1");
+      localStorage.removeItem("senegambia-session");
+    } catch {}
+    closeAuth();
+    showNotice("Guest mode enabled on this device.");
+  };
 
   const clampZoom = (zoom) => Math.min(2.6, Math.max(1, zoom));
 
@@ -154,12 +235,14 @@ function App() {
 
     setSelectedPlace(place);
     setMapView(clampView(nextX, nextY, zoom));
+    closeSearch();
   };
 
   const openAuth = (mode) => {
     setAuth(mode);
     setAuthError("");
-    setAuthForm({ name: "", email: "", password: "" });
+    setSearchOpen(false);
+    setAuthForm({ name: "", username: "", recoveryEmail: "", password: "", age18: false });
   };
 
   const closeAuth = () => {
@@ -168,26 +251,62 @@ function App() {
   };
 
   const submitAuth = () => {
-    const email = authForm.email.trim();
+    const identifier = authForm.username.trim();
     const password = authForm.password;
 
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      setAuthError("Enter a valid email address.");
+    if (auth === "signup") {
+      if (!authForm.name.trim()) {
+        setAuthError("Add your name to continue.");
+        return;
+      }
+      if (!/^[A-Za-z0-9_]{3,20}$/.test(identifier)) {
+        setAuthError("Username must be 3–20 letters, numbers or underscores.");
+        return;
+      }
+      if (!authForm.age18) {
+        setAuthError("Confirm that you are 18 or older to continue.");
+        return;
+      }
+      if (authForm.recoveryEmail && !/^\S+@\S+\.\S+$/.test(authForm.recoveryEmail.trim())) {
+        setAuthError("Enter a valid recovery email or leave it blank.");
+        return;
+      }
+    } else if (!identifier) {
+      setAuthError("Enter your username or email.");
       return;
     }
+
     if (password.length < 6) {
       setAuthError("Use at least 6 characters for the password.");
       return;
     }
-    if (auth === "signup" && !authForm.name.trim()) {
-      setAuthError("Add your name to continue.");
-      return;
-    }
 
+    try {
+      localStorage.setItem("senegambia-session", JSON.stringify({
+        displayName: auth === "signup" ? authForm.name.trim() : identifier,
+        username: identifier,
+        mode: "preview",
+        createdAt: new Date().toISOString()
+      }));
+      localStorage.removeItem("senegambia-guest");
+    } catch {}
+
+    setGuestMode(false);
     closeAuth();
     showNotice(auth === "signup"
-      ? "Signup details look good. Account service is ready for the next backend connection."
-      : "Login details look good. Account service is ready for the next backend connection.");
+      ? "Account preview created on this device."
+      : "Signed in to the local account preview.");
+  };
+
+  const openSearch = () => {
+    setSearchOpen(true);
+    setSearchQuery("");
+    window.setTimeout(() => document.getElementById("place-search")?.focus(), 0);
+  };
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setSearchQuery("");
   };
 
   const onMapWheel = (event) => {
@@ -426,6 +545,13 @@ function App() {
 
         <div className="map-vignette" aria-hidden="true" />
 
+        {guestMode && (
+          <div className="preview-badge" aria-label="Guest preview mode">
+            <span>Guest preview</span>
+            <button onClick={() => openAuth("login")}>Sign in</button>
+          </div>
+        )}
+
         <div className="safe-top">
           <div className="top-stack">
             <div className="top-panel panel">
@@ -452,13 +578,24 @@ function App() {
               </div>
             </div>
 
-            <div className="week-banner">💡 NAWEC power watch this week</div>
+            <button className="week-banner" onClick={() => showNotice("NAWEC watch: weekly power updates will be connected to live data later.")}>💡 NAWEC power watch this week</button>
           </div>
         </div>
 
-        <div className="map-hint panel" aria-hidden="true">
+        {booting && (
+          <div className="boot-screen" role="status" aria-label="Loading Senegambia Way">
+            <div className="boot-card panel">
+              <div className="boot-mark"><Logo /></div>
+              <strong>Senegambia Way</strong>
+              <span>Loading the world…</span>
+            </div>
+          </div>
+        )}
+
+        <div className="map-hint panel">
           <span className="map-hint-gesture">✥</span>
           <span>Drag · pinch · scroll</span>
+          <button type="button" onClick={openSearch}>Find</button>
           {mapView.zoom > 1 && <button type="button" onClick={resetMap}>Reset</button>}
         </div>
 
@@ -496,10 +633,10 @@ function App() {
               <button className="official-pill" onClick={() => showNotice("This is an official Senegambia Way channel.")}>
                 <span className="verified">✓</span> Official
               </button>
-              <button className="social-button" aria-label="X" onClick={() => showNotice("X social link coming soon.")}><SocialIcon kind="X" /></button>
-              <button className="social-button" aria-label="TikTok" onClick={() => showNotice("TikTok social link coming soon.")}>♪</button>
-              <button className="social-button" aria-label="Instagram" onClick={() => showNotice("Instagram social link coming soon.")}>◎</button>
-              <button className="social-button" aria-label="LinkedIn" onClick={() => showNotice("LinkedIn social link coming soon.")}><SocialIcon kind="IN" /></button>
+              <button className="social-button" aria-label="X" onClick={() => window.open("https://x.com/intent/post?text=Explore%20Senegambia%20Way%20%E2%80%94%20a%20Gambian%20world&url=" + encodeURIComponent(window.location.href), "_blank", "noopener,noreferrer")}><SocialIcon kind="X" /></button>
+              <button className="social-button" aria-label="TikTok" onClick={() => navigator.clipboard?.writeText(window.location.href).then(() => showNotice("Link copied. Share Senegambia Way anywhere."), () => showNotice("Copy this page URL to share Senegambia Way."))}>♪</button>
+              <button className="social-button" aria-label="Instagram" onClick={() => navigator.clipboard?.writeText(window.location.href).then(() => showNotice("Link copied. Share Senegambia Way anywhere."), () => showNotice("Copy this page URL to share Senegambia Way."))}>◎</button>
+              <button className="social-button" aria-label="LinkedIn" onClick={() => navigator.share?.({title:"Senegambia Way",text:"Explore Senegambia Way",url:window.location.href}).catch(() => {}) || navigator.clipboard?.writeText(window.location.href).then(() => showNotice("Link copied. Share Senegambia Way anywhere."), () => showNotice("Copy this page URL to share Senegambia Way."))}><SocialIcon kind="IN" /></button>
             </div>
           </div>
         </div>
@@ -509,28 +646,80 @@ function App() {
             <div className="cookie-panel panel">
               <div className="cookie-copy">
                 <span className="cookie-emoji">🍪</span>
-                <p>We use a cookie to keep you signed in, and another to count visits. No ad trackers, ever. <button onClick={() => showNotice("Privacy details will be added with the account system.")}>Privacy</button></p>
+                <p>We use a cookie to keep you signed in, and another to count visits. No ad trackers, ever. <button onClick={() => showNotice("Cookie choices stay on this device. No optional ad trackers are enabled.")}>Privacy</button></p>
               </div>
               <div className="cookie-actions">
-                <button className="btn btn-mist" onClick={() => setCookieOpen(false)}>Essential only</button>
-                <button className="btn btn-green" onClick={() => setCookieOpen(false)}>Accept</button>
+                <button className="btn btn-mist" onClick={() => persistCookieChoice("essential")}>Essential only</button>
+                <button className="btn btn-green" onClick={() => persistCookieChoice("accepted")}>Accept</button>
               </div>
             </div>
           </div>
         )}
 
         {notice && <div className="toast">{notice}</div>}
+
+        {searchOpen && (
+          <div className="search-backdrop" onClick={closeSearch}>
+            <section className="search-panel panel" onClick={(event) => event.stopPropagation()}>
+              <div className="search-head">
+                <div>
+                  <p className="eyebrow">Explore Senegambia</p>
+                  <h2>Find a place</h2>
+                </div>
+                <button className="popover-close" aria-label="Close search" onClick={closeSearch}>×</button>
+              </div>
+              <input
+                id="place-search"
+                className="place-search"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search market, beach, hospital…"
+                autoComplete="off"
+              />
+              <div className="search-results">
+                {searchResults.map((place) => (
+                  <button key={place.name} className="search-result" onClick={() => focusPlace(place)}>
+                    <span>{place.icon}</span>
+                    <strong>{place.name}</strong>
+                    <small>Center on map</small>
+                  </button>
+                ))}
+                {!searchResults.length && <div className="search-empty">No places match “{searchQuery}”.</div>}
+              </div>
+            </section>
+          </div>
+        )}
+
+        {offline && (
+          <div className="offline-banner" role="status">
+            <span>Offline mode</span>
+            <small>The map stays available. Live account features may wait for a connection.</small>
+          </div>
+        )}
       </section>
 
       {auth && (
-        <div className="modal-backdrop" onClick={closeAuth}>
-          <section className="auth-modal panel" onClick={(e) => e.stopPropagation()}>
+        <div className="auth-screen" role="dialog" aria-modal="true" aria-label={auth === "signup" ? "Create account" : "Sign in"}>
+          <section className="auth-page panel">
+            <div className="auth-page-stripe" aria-hidden="true" />
+            <div className="auth-page-top">
+              <button className="auth-back" onClick={closeAuth}>← Back to map</button>
+              <span className="auth-mode-chip">{guestMode ? "Guest mode" : "Account"}</span>
+            </div>
+
             <div className="auth-mark"><Logo /></div>
-            <p className="eyebrow">Senegambia Way · Preview</p>
-            <h1>{auth === "signup" ? "Start your Gambian story" : "Welcome back"}</h1>
+            <p className="eyebrow">Senegambia Way</p>
+            <h1>{auth === "signup" ? "Create your account" : "Welcome back"}</h1>
             <p className="auth-subtitle">
-              This preview validates the account flow and layout locally. Production account handling can plug into the same form without changing the map shell.
+              {auth === "signup"
+                ? "Create an account preview and keep your place in the world."
+                : "Use your username or recovery email to continue."}
             </p>
+
+            <div className="auth-switch" role="tablist" aria-label="Authentication">
+              <button className={auth === "login" ? "is-active" : ""} onClick={() => openAuth("login")}>Sign in</button>
+              <button className={auth === "signup" ? "is-active" : ""} onClick={() => openAuth("signup")}>Create account</button>
+            </div>
 
             {auth === "signup" && (
               <label>
@@ -545,15 +734,27 @@ function App() {
             )}
 
             <label>
-              Email
+              Username or email
               <input
-                value={authForm.email}
-                onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))}
-                autoComplete="email"
-                inputMode="email"
-                placeholder="you@example.com"
+                value={authForm.username}
+                onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))}
+                autoComplete="username"
+                placeholder="username or email"
               />
             </label>
+
+            {auth === "signup" && (
+              <label>
+                Recovery email <span className="optional">optional</span>
+                <input
+                  value={authForm.recoveryEmail}
+                  onChange={(event) => setAuthForm((current) => ({ ...current, recoveryEmail: event.target.value }))}
+                  autoComplete="email"
+                  inputMode="email"
+                  placeholder="you@example.com"
+                />
+              </label>
+            )}
 
             <label>
               Password
@@ -562,26 +763,36 @@ function App() {
                 value={authForm.password}
                 onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))}
                 autoComplete={auth === "signup" ? "new-password" : "current-password"}
-                placeholder="••••••••"
+                placeholder="At least 6 characters"
               />
             </label>
+
+            {auth === "signup" && (
+              <label className="age-check">
+                <input
+                  type="checkbox"
+                  checked={authForm.age18}
+                  onChange={(event) => setAuthForm((current) => ({ ...current, age18: event.target.checked }))}
+                />
+                <span>I confirm I am 18 or older and agree to the account terms.</span>
+              </label>
+            )}
 
             {authError && <div className="auth-error" role="alert">{authError}</div>}
 
             <button className="btn btn-green auth-submit" onClick={submitAuth}>
-              {auth === "signup" ? "Create preview account" : "Continue"}
+              {auth === "signup" ? "Create account" : "Sign in"}
             </button>
 
             {auth === "login" && (
-              <button
-                className="auth-link"
-                onClick={() => showNotice("Password reset will use the production account service when connected.")}
-              >
+              <button className="auth-link" onClick={() => showNotice("Password reset will use the production account service when connected.")}>
                 Forgot password?
               </button>
             )}
 
-            <button className="modal-close" onClick={closeAuth}>Close</button>
+            <div className="auth-divider"><span>or</span></div>
+            <button className="btn btn-mist guest-button" onClick={startGuest}>Play offline</button>
+            <p className="guest-copy">Guest progress stays on this device.</p>
           </section>
         </div>
       )}
