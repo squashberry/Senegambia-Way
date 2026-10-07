@@ -480,6 +480,4 @@ function App() {
   );
 }
 
-}
-
 createRoot(document.getElementById("root")).render(<App />);
