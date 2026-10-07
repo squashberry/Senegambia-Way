@@ -194,3 +194,33 @@ The captured gameplay structure uses a compact top bar with time, mood, online c
 
 ### Next build focus
 Replace the simulated starter actions with the real life-sim systems: jobs and shifts, money transactions, needs/time progression, homes, movement/travel, social interactions, messages and persistent multiplayer state.
+
+
+## README Update — Feature 008: Reference-aligned Gameplay UI v2 + Phone Apps
+
+**Date:** 2026-10-07
+
+### Implemented
+
+- Replaced the first-pass three-button HUD with the reference structure's four primary controls: **Home / Buy / Map / Phone**.
+- Expanded player needs from the initial prototype to **Hunger, Energy, Hygiene, Bladder, Fun and Social**.
+- Added a persistent local simulation state per account: game clock, mood, needs, money, job, work performance, work-task progress, inventory and message threads.
+- Added a full Home scene layer with home actions for eating, sleeping, showering and relaxing.
+- Added a working shift panel inspired by the captured gameplay structure, including Performance, countdown, five work choices and early-leave behavior.
+- Added the Jobs phone application with current-career state, pay, work hours and “Apply — start tomorrow” actions.
+- Added the Bank phone application with balance, activity and transfer entry points.
+- Added Messages, Hustle, Daily, Gems, Market, Shop, People, Social, Home, Cars, Business, Skills, Profile and Settings phone apps as interactive frontend surfaces.
+- Added a phone-style app launcher with a searchable 16-app grid and quick-access dock.
+- Added a Buy tab with purchasable furniture/upgrades and persistent ownership.
+- Added responsive desktop/tablet/mobile layouts for the phone and gameplay HUD.
+- Added an original CSS world/home scene layer so the gameplay HUD no longer reads as a marketing map overlay when the player is inside the Sim.
+
+### Reference cross-check
+
+The implementation was checked twice against the repository's captured evidence and current public gameplay references. The repository capture establishes the original app's map/home/sea/government data loading and 3D character/world asset requests, while current gameplay references establish the four-button Home/Buy/Map/Phone information architecture, six needs, phone-based Jobs/Bank/Messages, and the work-performance flow.
+
+The Senegambia implementation remains a clean-room frontend recreation: Lagos-specific names, currency and branding are replaced with Gambian content while the interaction architecture is preserved.
+
+### Remaining platform layer
+
+The remaining major work is server-backed persistence/multiplayer, a production 3D scene/character asset pipeline, real travel/pathing, live social messaging, real account authentication, and server-authoritative jobs/economy.
