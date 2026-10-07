@@ -1,9 +1,9 @@
-# Lagos Life — Public HTTP Frontend Mirror
+# Senegambia Way — Public HTTP Frontend Mirror
 
 This directory contains a filtered mirror of publicly retrievable
 frontend resources from:
 
-https://lagoslife.app/
+https://senegambialife.app/
 
 Collected for technical and UX research for the original
 Senegambia Way project.
@@ -32,7 +32,7 @@ Senegambia Way project.
 - Unlinked guessed filenames
 
 The mirror should be treated as an observation of the public
-frontend delivery surface, not as the source code of Lagos Life
+frontend delivery surface, not as the source code of Senegambia Way
 and not as permission to reproduce proprietary branding, artwork,
 writing, or implementation.
 
