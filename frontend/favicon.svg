@@ -1,11 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd45a"/><stop offset="1" stop-color="#e9a512"/></linearGradient></defs>
-  <path d="M6 18 18 30 32 8l14 22 12-12-5 24H11L6 18Z" fill="url(#gold)" stroke="#b97b06" stroke-width="2" stroke-linejoin="round"/>
-  <rect x="10" y="40" width="44" height="9" rx="3" fill="#d11c2c"/>
-  <rect x="10" y="40" width="44" height="3" fill="#d11c2c"/>
-  <rect x="10" y="43" width="44" height="3" fill="#1236a2"/>
-  <rect x="10" y="46" width="44" height="3" fill="#198754"/>
-  <rect x="10" y="43" width="44" height="1.2" fill="#fff"/>
-  <rect x="10" y="46" width="44" height="1.2" fill="#fff"/>
-  <rect x="10" y="40" width="44" height="9" rx="3" fill="none" stroke="#b97b06" stroke-width="2"/>
+  <path d="M32 4C20.9 4 12 12.4 12 22.8c0 12.8 9.8 23.5 20 35.2 10.2-11.7 20-22.4 20-35.2C52 12.4 43.1 4 32 4Z" fill="#fff" stroke="#0C1C8C" stroke-width="2.2"/>
+  <circle cx="32" cy="25" r="15.5" fill="#CE1126"/>
+  <path d="M16.5 20.5h31v10h-31z" fill="#0C1C8C"/>
+  <path d="M16.5 30.5h31v11.5h-31z" fill="#3A7728"/>
+  <path d="M16.5 19.3h31v1.2h-31zM16.5 29.3h31v1.2h-31z" fill="#fff"/>
+  <path d="M31 8c-3.2 8.1 4.6 11.4 0 17.2-4.6 5.8 3 9.8 0 17.8" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/>
+  <circle cx="32" cy="25" r="15.5" fill="none" stroke="#fff" stroke-width="1.1" opacity=".85"/>
+  <circle cx="32" cy="13.5" r="2.5" fill="#fff" stroke="#0C1C8C" stroke-width="1.1"/>
 </svg>
