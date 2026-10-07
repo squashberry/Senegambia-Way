@@ -172,3 +172,25 @@ Reference: https://lagoslifeguide.com/beginner-guide/
 
 ### Next build focus
 Continue with the actual simulation layer after the player enters Senegambia: needs, time, money, careers, homes, travel, relationships and profile/settings.
+
+
+## README Update — Feature 007: Post-onboarding Game HUD
+
+**Date:** 2026-10-07
+
+### Implemented
+- Added a dedicated gameplay layer that appears only after the 12-step Sim setup is completed.
+- Matched the captured gameplay structure: compact top status bar, contextual world/action panel and a three-item **Home / Map / Phone** dock.
+- Added simulated in-game status information: day/time, mood, online population and Gambian Dalasi balance.
+- Added Home gameplay controls for energy, hunger and happiness, plus starter actions for work, food, rest and going outside.
+- Added a Dream card tied to the player's onboarding choice.
+- Added an Explore/Map context panel while preserving the existing interactive world map and place search.
+- Added a Phone panel for messages, people and profile entry points.
+- Added responsive mobile behavior with the HUD compressed into thumb-friendly floating cards and a bottom navigation dock.
+- Kept the signed-out landing experience separate so the main marketing/map shell does not turn into the game HUD before onboarding is finished.
+
+### Reference alignment
+The captured gameplay structure uses a compact top bar with time, mood, online count and money, a world/activity area, and Home/Map/Phone navigation. The Senegambia version preserves that information architecture while replacing Lagos-specific content with Gambian locations, Dalasi and the player's selected neighbourhood.
+
+### Next build focus
+Replace the simulated starter actions with the real life-sim systems: jobs and shifts, money transactions, needs/time progression, homes, movement/travel, social interactions, messages and persistent multiplayer state.
