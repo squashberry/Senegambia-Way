@@ -380,3 +380,86 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(12,28,140,.24);o
   .setup-heading h1{font-size:24px}
   .setup-option{min-height:54px}
 }
+
+/* Post-onboarding gameplay HUD — compact status, contextual action card, phone sheet and Home/Map/Phone dock. */
+.world.is-game-active .top-stack{display:none}
+.world.is-game-active .landing-bottom-hidden{display:none}
+.map-hint.is-game-hidden{display:none}
+.game-hud{position:absolute;inset:0;z-index:70;pointer-events:none}
+.game-hud>*{pointer-events:auto}
+.game-status{position:absolute;top:calc(12px + env(safe-area-inset-top));left:50%;width:min(96vw,900px);transform:translateX(-50%);min-height:52px;padding:6px 8px;display:flex;align-items:center;gap:12px;border-radius:999px;background:rgba(255,255,255,.93);box-shadow:0 12px 34px rgba(22,32,60,.14);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.game-player{display:flex;align-items:center;gap:8px;min-width:180px;padding-right:10px}
+.game-avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:none;background:linear-gradient(145deg,var(--flag-blue),#172a9f);color:#fff;font-size:12px;font-weight:900;box-shadow:0 6px 14px rgba(12,28,140,.18)}
+.game-player>div:last-child{display:grid;gap:2px;min-width:0}
+.game-player strong{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.game-player small{font-size:9px;color:var(--ink-soft);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.game-status-items{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-left:auto;min-width:0;overflow:auto;scrollbar-width:none}
+.game-status-items::-webkit-scrollbar{display:none}
+.game-status-items>span,.game-status-items>strong{height:30px;padding:0 9px;display:inline-flex;align-items:center;border-radius:999px;background:rgba(238,242,247,.82);color:var(--ink-soft);font-size:9px;font-weight:800;white-space:nowrap}
+.game-status-items strong{color:var(--ink);background:rgba(58,119,40,.10);font-size:10px}
+.game-time{font-variant-numeric:tabular-nums;color:var(--ink)!important}
+.game-mood{color:var(--flag-green)!important}
+.game-mood i{width:6px;height:6px;border-radius:50%;margin-right:5px;background:var(--flag-green);box-shadow:0 0 0 3px rgba(58,119,40,.10)}
+.game-context-card,.game-map-card,.game-phone{position:absolute;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(96vw,430px);border-radius:26px;background:rgba(255,255,255,.95);box-shadow:0 24px 70px rgba(22,32,60,.20);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.game-context-card{padding:16px}
+.game-context-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.game-eyebrow{display:block;margin-bottom:5px;color:var(--leaf-deep);font-size:9px;font-weight:900;letter-spacing:.08em}
+.game-context-head h1{margin:0;font:600 24px/1.04 var(--display);letter-spacing:-.02em}
+.game-context-head p{margin:7px 0 0;color:var(--ink-soft);font-size:10px;line-height:1.45}
+.game-home-badge{width:40px;height:40px;display:grid;place-items:center;flex:none;border-radius:14px;background:rgba(12,28,140,.08);color:var(--flag-blue);font-size:18px}
+.game-bars{display:grid;gap:9px;margin:14px 0 12px;padding:12px;border:1px solid #e5e9ee;border-radius:18px;background:#fbfcfd}
+.game-bar-row>div{display:flex;align-items:center;justify-content:space-between;font-size:9px;font-weight:800}
+.game-bar-row b{font-size:9px;color:var(--ink-soft)}
+.game-bar-row>i{display:block;height:5px;margin-top:5px;border-radius:999px;background:#e9edf1;overflow:hidden}
+.game-bar-row em{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--flag-blue),var(--flag-green));transition:width .25s ease}
+.game-goal{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;border-radius:15px;background:rgba(58,119,40,.07);border:1px solid rgba(58,119,40,.13)}
+.game-goal>div{display:grid;gap:3px}
+.game-goal span:first-child{font-size:8px;font-weight:900;letter-spacing:.07em;color:var(--leaf-deep)}
+.game-goal strong{font-size:12px}
+.game-arrow{width:27px;height:27px;display:grid;place-items:center;border-radius:50%;background:#fff;color:var(--flag-green);font-weight:900}
+.game-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.game-action{min-height:58px;padding:9px 10px;border:1px solid #e1e7ed;border-radius:15px;background:#fff;text-align:left;color:var(--ink);cursor:pointer}
+.game-action:hover{border-color:rgba(12,28,140,.18);transform:translateY(-1px)}
+.game-action strong{display:block;font-size:10px}
+.game-action span{display:block;margin-top:4px;color:var(--ink-soft);font-size:8px;line-height:1.35}
+.game-map-card{padding:16px}
+.game-map-card h2{margin:0;font:600 23px/1.04 var(--display)}
+.game-map-card p{margin:7px 0 12px;color:var(--ink-soft);font-size:10px;line-height:1.45}
+.game-map-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.game-map-shortcuts button{height:42px;border:1px solid #e1e7ed;border-radius:13px;background:#fff;color:var(--ink);cursor:pointer;font-size:9px;font-weight:800}
+.game-phone{padding:15px;bottom:calc(84px + env(safe-area-inset-bottom))}
+.game-phone-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.game-phone-head h2{margin:0;font:600 24px/1.05 var(--display)}
+.game-close-phone{width:30px;height:30px;border:0;border-radius:50%;background:#eef2f6;color:var(--ink);cursor:pointer;font-size:18px}
+.game-phone-list{display:grid;gap:7px;margin-top:14px}
+.game-phone-list>button{min-height:60px;display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:9px;padding:8px 10px;border:1px solid #e1e7ed;border-radius:15px;background:#fff;color:var(--ink);text-align:left;cursor:pointer}
+.phone-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:rgba(12,28,140,.08);color:var(--flag-blue);font-weight:900}
+.game-phone-list div{display:grid;gap:3px}
+.game-phone-list strong{font-size:10px}
+.game-phone-list small{font-size:8px;line-height:1.3;color:var(--ink-soft);font-weight:700}
+.game-phone-list>b{font-size:17px;color:var(--ink-soft)}
+.game-dock{position:absolute;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(92vw,330px);height:58px;padding:4px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;border-radius:20px;background:rgba(255,255,255,.96);box-shadow:0 18px 50px rgba(22,32,60,.20);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.game-dock button{border:0;border-radius:15px;background:transparent;color:var(--ink-soft);cursor:pointer;display:grid;place-items:center;align-content:center;gap:1px}
+.game-dock button>span{font-size:18px;line-height:1}
+.game-dock button small{font-size:8px;font-weight:900}
+.game-dock button.is-active{background:var(--ink);color:#fff;box-shadow:0 5px 14px rgba(22,32,60,.18)}
+@media (max-width:760px){
+  .game-status{top:calc(9px + env(safe-area-inset-top));width:calc(100vw - 18px);min-height:50px;padding:5px 7px;border-radius:18px;display:grid;grid-template-columns:auto 1fr;gap:7px}
+  .game-player{min-width:0;padding-right:0}
+  .game-avatar{width:32px;height:32px}
+  .game-player small{max-width:100px}
+  .game-status-items{justify-content:flex-end;gap:4px;overflow:hidden}
+  .game-status-items>span,.game-status-items>strong{height:27px;padding:0 7px;font-size:8px}
+  .game-status-items .game-mood{display:none}
+  .game-context-card,.game-map-card,.game-phone{bottom:calc(78px + env(safe-area-inset-bottom));width:calc(100vw - 18px);border-radius:22px;padding:13px}
+  .game-context-head h1{font-size:21px}
+  .game-actions{gap:6px}
+  .game-action{min-height:55px}
+  .game-dock{bottom:calc(9px + env(safe-area-inset-bottom));width:calc(100vw - 26px);height:54px;border-radius:18px}
+}
+@media (max-width:460px){
+  .game-status-items>span:not(.game-time),.game-status-items>strong{display:none}
+  .game-status{grid-template-columns:1fr auto}
+  .game-context-card,.game-map-card,.game-phone{max-height:58dvh;overflow:auto}
+  .game-action{min-height:52px}
+}
