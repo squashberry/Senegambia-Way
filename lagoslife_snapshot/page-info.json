@@ -1,0 +1,439 @@
+{
+  "title": "Lagos Life — live your Lagos story",
+  "htmlLang": "en",
+  "scripts": [
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0p91zfawmvoj4.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2kstq4kblh5h-.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/turbopack-32r47vn9gk1gs.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3ox82lyaxun21.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3dlqm4t3lwqe9.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/137cyer49p1ei.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2uudlaiyxg6dw.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3vdp8l41vgaco.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0u3h5phbnjv14.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0u-lpfsr-kyh3.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2ttj87p8vn0op.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/02d05dqj5-rdq.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0a4az3h_zfpn4.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/03r4e859bgn_o.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2lohtkr713v9v.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3jv557p5iq4mk.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/1c6u2zxt9_9gp.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3qi9c-v7ubuum.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/1zs9b1nfv3lza.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3okvh-gm45tbn.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/28rj3eza8j4he.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2tshwyq2-lnja.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0v9ugcu8gsz7s.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/09_gisnkv6kmo.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3vct9ii-k-uvy.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "",
+      "type": "application/ld+json",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0cz1d0mv5g_q7.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2v960lgo2kbix.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2z_pbiejpxl6k.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2m1axo1s__xif.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2y9mt7hzmv74u.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0h-j4_yw35a--.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/2yt7ctadva2dh.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0vgk6h7j_ua28.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3gg_tw9jrbd5h.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/1todx7rctijxc.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/3iluy0onkjs7j.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/33hpcy7s2rwbe.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/424xx_f1vd7fk.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0wu-n3qohfqt_.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "https://lagoslife.app/_next/static/chunks/0ive9zeli_v2r.js",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "",
+      "type": "",
+      "module": false
+    },
+    {
+      "src": "",
+      "type": "",
+      "module": false
+    }
+  ],
+  "stylesheets": [
+    "https://lagoslife.app/_next/static/chunks/1hbzhmilrsj2i.css",
+    "https://lagoslife.app/_next/static/chunks/2491mx29m074s.css"
+  ],
+  "links": [
+    {
+      "rel": "preload",
+      "href": "https://lagoslife.app/_next/static/media/5d52bd6c4cb3f315-s.p.0ez3bnoxb63ra.woff2",
+      "type": "font/woff2"
+    },
+    {
+      "rel": "preload",
+      "href": "https://lagoslife.app/_next/static/media/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2",
+      "type": "font/woff2"
+    },
+    {
+      "rel": "stylesheet",
+      "href": "https://lagoslife.app/_next/static/chunks/1hbzhmilrsj2i.css",
+      "type": ""
+    },
+    {
+      "rel": "stylesheet",
+      "href": "https://lagoslife.app/_next/static/chunks/2491mx29m074s.css",
+      "type": ""
+    },
+    {
+      "rel": "preload",
+      "href": "https://lagoslife.app/_next/static/chunks/0ive9zeli_v2r.js",
+      "type": ""
+    },
+    {
+      "rel": "manifest",
+      "href": "https://lagoslife.app/manifest.webmanifest",
+      "type": ""
+    },
+    {
+      "rel": "icon",
+      "href": "https://lagoslife.app/icon.svg?icon.1yrju-45dlf-0.svg",
+      "type": "image/svg+xml"
+    },
+    {
+      "rel": "apple-touch-icon",
+      "href": "https://lagoslife.app/apple-icon.png?apple-icon.3g-ksduuva788.png",
+      "type": "image/png"
+    }
+  ],
+  "meta": [
+    {
+      "name": "",
+      "property": null,
+      "content": ""
+    },
+    {
+      "name": "viewport",
+      "property": null,
+      "content": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    },
+    {
+      "name": "theme-color",
+      "property": null,
+      "content": "#eef2f7"
+    },
+    {
+      "name": "next-size-adjust",
+      "property": null,
+      "content": ""
+    },
+    {
+      "name": "description",
+      "property": null,
+      "content": "A Sims-style life game set in Lagos. Ride danfo, chop amala at Shitta, party at Quilox, survive NEPA — and make real friends. Play free in your browser."
+    },
+    {
+      "name": "application-name",
+      "property": null,
+      "content": "Lagos Life"
+    },
+    {
+      "name": "mobile-web-app-capable",
+      "property": null,
+      "content": "yes"
+    },
+    {
+      "name": "apple-mobile-web-app-title",
+      "property": null,
+      "content": "Lagos Life"
+    },
+    {
+      "name": "apple-mobile-web-app-status-bar-style",
+      "property": null,
+      "content": "black-translucent"
+    },
+    {
+      "name": "",
+      "property": "og:title",
+      "content": "Lagos Life — live your Lagos story"
+    },
+    {
+      "name": "",
+      "property": "og:description",
+      "content": "A Sims-style life game set in Lagos. Ride danfo, chop amala at Shitta, party at Quilox, survive NEPA — and make real friends. Play free in your browser."
+    },
+    {
+      "name": "",
+      "property": "og:url",
+      "content": "https://lagoslife.app"
+    },
+    {
+      "name": "",
+      "property": "og:site_name",
+      "content": "Lagos Life"
+    },
+    {
+      "name": "",
+      "property": "og:locale",
+      "content": "en_NG"
+    },
+    {
+      "name": "",
+      "property": "og:image",
+      "content": "https://lagoslife.app/opengraph-image?3c97f788344d8ddc"
+    },
+    {
+      "name": "",
+      "property": "og:image:type",
+      "content": "image/png"
+    },
+    {
+      "name": "",
+      "property": "og:image:width",
+      "content": "1200"
+    },
+    {
+      "name": "",
+      "property": "og:image:height",
+      "content": "630"
+    },
+    {
+      "name": "",
+      "property": "og:image:alt",
+      "content": "Lagos Life — a Sims-style life game set in Lagos, Nigeria"
+    },
+    {
+      "name": "",
+      "property": "og:type",
+      "content": "website"
+    },
+    {
+      "name": "twitter:card",
+      "property": null,
+      "content": "summary_large_image"
+    },
+    {
+      "name": "twitter:title",
+      "property": null,
+      "content": "Lagos Life — live your Lagos story"
+    },
+    {
+      "name": "twitter:description",
+      "property": null,
+      "content": "A Sims-style life game set in Lagos. Ride danfo, chop amala at Shitta, party at Quilox, survive NEPA — and make real friends. Play free in your browser."
+    },
+    {
+      "name": "twitter:image",
+      "property": null,
+      "content": "https://lagoslife.app/twitter-image?3c97f788344d8ddc"
+    },
+    {
+      "name": "twitter:image:alt",
+      "property": null,
+      "content": "Lagos Life — a Sims-style life game set in Lagos, Nigeria"
+    },
+    {
+      "name": "twitter:image:type",
+      "property": null,
+      "content": "image/png"
+    },
+    {
+      "name": "twitter:image:width",
+      "property": null,
+      "content": "1200"
+    },
+    {
+      "name": "twitter:image:height",
+      "property": null,
+      "content": "630"
+    }
+  ]
+}

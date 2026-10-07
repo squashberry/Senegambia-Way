@@ -1,0 +1,10 @@
+{
+  "reactRoot": false,
+  "nextData": false,
+  "vue": false,
+  "svelte": false,
+  "angular": false,
+  "flutter": false,
+  "vite": false,
+  "webpack": false
+}

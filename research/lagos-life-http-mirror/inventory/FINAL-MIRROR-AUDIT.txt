@@ -1,0 +1,50 @@
+LAGOS LIFE FINAL MIRROR AUDIT
+=============================
+
+STATUS:
+SUCCESS
+
+SOURCE:
+https://lagoslife.app/
+
+TOTAL FILES:
+70
+
+REAL FRONTEND FILES:
+42
+
+SUSPICIOUS/INVALID FILES:
+28
+
+TOTAL SIZE:
+4.41 MB
+
+REAL FRONTEND SIZE:
+3.76 MB
+
+REAL JAVASCRIPT:
+23
+
+REAL CSS:
+2
+
+REAL FONTS:
+7
+
+REAL IMAGES/ICONS:
+2
+
+REAL JSON/MANIFEST:
+1
+
+MIRROR:
+C:\Users\Squashberry\Downloads\LagosLifeHTTPMirror\mirror
+
+REAL ASSET INVENTORY:
+C:\Users\Squashberry\Downloads\LagosLifeHTTPMirror\inventory\real-frontend-assets.txt
+
+SUSPICIOUS INVENTORY:
+C:\Users\Squashberry\Downloads\LagosLifeHTTPMirror\inventory\suspicious-assets.txt
+
+SIZE INVENTORY:
+C:\Users\Squashberry\Downloads\LagosLifeHTTPMirror\inventory\asset-sizes.txt

@@ -1,0 +1,12 @@
+{
+  "localStorage": [
+    "lagos-life-save",
+    "ll_dev"
+  ],
+  "sessionStorage": [
+    "ll-visit"
+  ],
+  "cookies": [
+    "ll_dev"
+  ]
+}

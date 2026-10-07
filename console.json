@@ -1,0 +1,962 @@
+[
+  {
+    "time": "2026-10-07T00:19:11.425Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:12.949Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:20.939Z",
+    "type": "warning",
+    "text": "[.WebGL-0x402c00aa5400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "location": {
+      "url": "https://lagoslife.app/",
+      "line": 0,
+      "column": 0,
+      "lineNumber": 0,
+      "columnNumber": 0
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:20.942Z",
+    "type": "warning",
+    "text": "[.WebGL-0x402c00aa5400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "location": {
+      "url": "https://lagoslife.app/",
+      "line": 0,
+      "column": 0,
+      "lineNumber": 0,
+      "columnNumber": 0
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:21.129Z",
+    "type": "warning",
+    "text": "[.WebGL-0x402c00aa5400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "location": {
+      "url": "https://lagoslife.app/",
+      "line": 0,
+      "column": 0,
+      "lineNumber": 0,
+      "columnNumber": 0
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:21.129Z",
+    "type": "warning",
+    "text": "[.WebGL-0x402c00aa5400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)",
+    "location": {
+      "url": "https://lagoslife.app/",
+      "line": 0,
+      "column": 0,
+      "lineNumber": 0,
+      "columnNumber": 0
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:26.022Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:28.933Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:34.077Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:52.618Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:19:54.244Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:22:06.134Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:22:41.369Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:22:41.837Z",
+    "type": "warning",
+    "text": "THREE.Material: parameter 'map' has value of undefined.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:22:41.910Z",
+    "type": "warning",
+    "text": "THREE.Material: parameter 'map' has value of undefined.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:22:52.591Z",
+    "type": "warning",
+    "text": "THREE.Material: parameter 'map' has value of undefined.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:22:52.753Z",
+    "type": "warning",
+    "text": "THREE.Material: parameter 'map' has value of undefined.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:27:08.698Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:27:09.259Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:27:10.371Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:27:11.055Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:27:11.970Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:27:12.727Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:27:13.064Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:47.806Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:48.516Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:50.313Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:50.972Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:51.683Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:52.309Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:53.225Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:53.636Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:54.499Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:55.248Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:28:55.835Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:11.669Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:12.280Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:12.897Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:13.751Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:14.174Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:14.518Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:15.003Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:15.479Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:15.948Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:16.729Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:18.194Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:18.846Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:19.434Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:20.253Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:20.621Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:21.243Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:22.608Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:23.358Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:24.200Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:25.355Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:26.080Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:26.679Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:27.552Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:28.146Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:28.578Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:29.186Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:29.867Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:30.361Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:30.902Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:31.500Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:32.098Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:33.457Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:29:34.695Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:39.510Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:39.744Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:41.965Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:44.700Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:45.640Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:46.918Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:48.031Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:49.810Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:50.823Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:51.852Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:30:52.601Z",
+    "type": "warning",
+    "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "location": {
+      "url": "https://lagoslife.app/_next/static/chunks/0jdui2ubgldm6.js",
+      "line": 0,
+      "column": 1105,
+      "lineNumber": 0,
+      "columnNumber": 1105
+    }
+  },
+  {
+    "time": "2026-10-07T00:33:10.474Z",
+    "type": "info",
+    "text": "Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113",
+    "location": {
+      "url": "https://lagoslife.app/",
+      "line": 0,
+      "column": 0,
+      "lineNumber": 0,
+      "columnNumber": 0
+    }
+  }
+]
