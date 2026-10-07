@@ -110,16 +110,25 @@ function App() {
     }
   });
   const [onboardingStep, setOnboardingStep] = useState(0);
-  const [simProfile, setSimProfile] = useState({
-    nickname: "",
-    shape: "Balanced",
-    height: "Average",
-    skin: "Deep",
-    hair: "Low cut",
-    outfit: "Casual",
-    bio: "",
-    trait: "Resourceful",
-    home: "Serrekunda"
+  const [simProfile, setSimProfile] = useState(() => {
+    const defaults = {
+      nickname: "",
+      shape: "Balanced",
+      height: "Average",
+      skin: "Deep",
+      hair: "Low cut",
+      outfit: "Casual",
+      bio: "",
+      trait: "Resourceful",
+      home: "Serrekunda"
+    };
+    try {
+      const raw = localStorage.getItem("senegambia-session");
+      const saved = raw ? JSON.parse(raw) : null;
+      return saved?.sim ? { ...defaults, ...saved.sim } : defaults;
+    } catch {
+      return defaults;
+    }
   });
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [notice, setNotice] = useState(null);
