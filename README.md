@@ -130,3 +130,16 @@ This bypasses account UI and opens the world in guest preview mode.
 
 ### Next build focus
 Finish the remaining game-directory layer, refine place detail cards and mobile camera framing, then connect real account persistence/backend APIs.
+
+
+## README Update — Feature 004: Hard Preview Bypass + Auth Reference Repair
+
+**Date:** 2026-10-07
+
+### Implemented
+- `?preview=1` and `?guest=1` now hard-disable authentication at both state initialization and render time.
+- Auth buttons are guarded in preview mode so they cannot reopen the account screen.
+- Reworked the account screen to follow the reference behavior documented by the official Lagos Life support material: username/email login, Forgot password, Sign up, and Play offline. citeturn157568search0
+- Rebuilt the auth styling as a fully scoped component system instead of relying on generic panel styling.
+- Added explicit field styling, button states, account tabs, brand header, flag stripe, recovery link, offline option and mobile bottom-sheet behavior.
+- Changed the GitHub Pages Vite base to the explicit project path /Senegambia-Way/ to make generated asset URLs deterministic on GitHub Pages.
